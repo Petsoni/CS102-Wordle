@@ -1,0 +1,42 @@
+/*WORDLE title*/
+.header {
+    -fx-font-size: 30px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
+    -fx-font-weight: bold;
+    -fx-font-family: "MS Reference Sans Serif";
+}
+
+/*Pane*/
+.paneBackground {
+    -fx-background-color: dimgray;
+}
+
+/*Login form*/
+.loginTitle {
+    -fx-font-size: 30px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
+    -fx-font-weight: bold;
+    -fx-font-family: "MS Reference Sans Serif";
+}
+
+.loginField:focused {
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
+}
+
+/*Register form*/
+.registerTitle {
+    -fx-font-size: 30px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
+    -fx-font-weight: bold;
+    -fx-font-family: "MS Reference Sans Serif";
+}
+
+.registerField:focused {
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
+}
+
+/*Game grid*/
+.square {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+}
