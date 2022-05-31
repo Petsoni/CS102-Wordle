@@ -1,7 +1,11 @@
 package utils;
+
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 public class GameGridMaker {
 
@@ -29,18 +33,29 @@ public class GameGridMaker {
 				GridPane.setRowIndex(rec, col);
 				GridPane.setColumnIndex(rec, row);
 
+				GridPane.setMargin(rec, new Insets(7));
+
 				gameGrid.add(rec, row, col);
 
 				rec.getStyleClass().add("square");
 
+				rec.setPadding(new Insets(5));
+
+				//MAKES ALL LETTERS UPPER CASE
+				rec.setTextFormatter(new TextFormatter<>((change) -> {
+					change.setText(change.getText().toUpperCase());
+					return change;
+				}));
+
+				rec.setBackground(new Background(new BackgroundFill(Color.DARKGREY, new CornerRadii(5),
+						Insets.EMPTY)));
+
 				CharLimiter.Limit(rec);
 
-				rec.setOnAction(e -> {
-					rec.requestFocus();
-				});
-
 			}
+
 		}
+
 
 		return gameGrid;
 	}
