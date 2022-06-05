@@ -4,6 +4,7 @@ module com.example.cs102wordle {
 	requires org.jsoup;
 	requires java.sql;
 	requires java.persistence;
+	requires org.hibernate.orm.core;
 
 	exports com.example.cs102wordle;
 	exports building_classes;

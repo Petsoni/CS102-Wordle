@@ -1,9 +1,15 @@
 package com.example.cs102wordle;
 
 import building_classes.GameScenePrimary;
+import building_classes.LoginScene;
+import controllers.WordController;
+import entities.Word;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utils.WordScrapper;
+
+import java.util.List;
 
 public class HelloApplication extends Application {
 
@@ -14,9 +20,12 @@ public class HelloApplication extends Application {
 	@Override
 	public void start(Stage stage) {
 
-		Scene loginFormScene = new Scene(new GameScenePrimary(stage), 1000, 800);
+		Scene loginFormScene = new Scene(new LoginScene(stage), 500, 500);
 		stage.setScene(loginFormScene);
 		stage.show();
+
+
+
 
 
 	}

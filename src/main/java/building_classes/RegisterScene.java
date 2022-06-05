@@ -1,7 +1,10 @@
 package building_classes;
 
+import controllers.UserController;
+import entities.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -95,6 +98,14 @@ public class RegisterScene extends GridPane {
 			String surname = surnameTextField.getText();
 			String username = usernameTextField.getText();
 			String password = passwordTextField.getText();
+
+			User newUser = new User(name, surname, username, password);
+
+			UserController.save(newUser);
+
+			Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
+			stage.setScene(scene);
+			stage.show();
 		});
 
 	}

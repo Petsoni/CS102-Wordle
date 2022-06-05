@@ -24,6 +24,24 @@ public class User {
 	@Column(name = "password", nullable = false, length = 50)
 	private String password;
 
+	public User() {
+	}
+
+	public User(Integer id, String name, String surname, String username, String password) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+	}
+
+	public User(String name, String surname, String username, String password) {
+		this.name = name;
+		this.surname = surname;
+		this.username = username;
+		this.password = password;
+	}
+
 	public Integer getId() {
 		return id;
 	}
