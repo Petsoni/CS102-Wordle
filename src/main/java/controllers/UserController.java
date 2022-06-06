@@ -131,4 +131,75 @@ public class UserController {
 		}
 
 	}
+
+	/***
+	 * Method that checks if the login details are correct
+	 * @param username
+	 * @param password
+	 * @return true if the login details are correct
+	 */
+	public static boolean checkLoginDetails(String username, String password) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM user WHERE username = ? AND password = ?;");
+
+			stmt.setString(1, username);
+			stmt.setString(2, password);
+
+			ResultSet set = stmt.executeQuery();
+
+			if (set.next()) {
+				return true;
+			}
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
+	/***
+	 * Method that checks if the username is already taken
+	 * @param username
+	 * @return true if the username is already taken
+	 */
+	public static boolean checkUsername(String username) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM user WHERE username = ?;");
+
+			stmt.setString(1, username);
+
+			ResultSet set = stmt.executeQuery();
+
+			if (set.next()) {
+				return true;
+			}
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
 }
+
+
+
+

@@ -1,5 +1,7 @@
 package building_classes;
 
+import controllers.UserController;
+import exceptions.WrongUsernameOrPasswordException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -79,12 +81,20 @@ public class LoginScene extends GridPane {
 		userTextField.getStyleClass().add("loginField");
 		pwField.getStyleClass().add("loginField");
 
-		/*TODO: SET ON ACTIONS (VIKTOR SCENE SWITCH TRY)*/
 		//ACTION FUNCTIONS
 		loginBtn.setOnAction(e -> {
-			Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1000, 600);
-			stage.setScene(gameScene);
-			stage.show();
+
+			boolean result = UserController.checkLoginDetails(userTextField.getText(), pwField.getText());
+
+			if (!result) {
+				throw new WrongUsernameOrPasswordException("Wrong username or password");
+			} else {
+
+				Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1000, 600);
+				stage.setScene(gameScene);
+				stage.show();
+
+			}
 		});
 
 		registerBtn.setOnAction(e -> {

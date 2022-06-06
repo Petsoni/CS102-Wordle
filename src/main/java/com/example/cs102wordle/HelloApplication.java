@@ -1,15 +1,9 @@
 package com.example.cs102wordle;
 
-import building_classes.GameScenePrimary;
 import building_classes.LoginScene;
-import controllers.WordController;
-import entities.Word;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import utils.WordScrapper;
-
-import java.util.List;
 
 public class HelloApplication extends Application {
 

@@ -2,6 +2,7 @@ package building_classes;
 
 import controllers.UserController;
 import entities.User;
+import exceptions.UserAlreadyExistsException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -99,13 +100,22 @@ public class RegisterScene extends GridPane {
 			String username = usernameTextField.getText();
 			String password = passwordTextField.getText();
 
-			User newUser = new User(name, surname, username, password);
+			boolean result = UserController.checkUsername(username);
 
-			UserController.save(newUser);
+			System.out.println(result);
 
-			Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
-			stage.setScene(scene);
-			stage.show();
+			if (result) {
+				throw new UserAlreadyExistsException("Username already exists");
+			} else {
+
+				User newUser = new User(name, surname, username, password);
+
+				UserController.save(newUser);
+
+				Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
+				stage.setScene(scene);
+				stage.show();
+			}
 		});
 
 	}
