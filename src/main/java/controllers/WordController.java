@@ -18,7 +18,7 @@ public class WordController {
 	 * Method that returns all words from the database
 	 * @return words
 	 */
-	public static List<Word> getAllWord() {
+	public static List<Word> getAllWords() {
 
 		List<Word> wordList = new ArrayList<>();
 

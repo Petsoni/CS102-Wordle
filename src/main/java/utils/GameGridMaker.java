@@ -4,16 +4,24 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameGridMaker {
+
+	private List<List<TextField>> textFieldListByRow = new ArrayList<>();
+
+	public List<List<TextField>> getTextFieldListByRow() {
+		return textFieldListByRow;
+	}
 
 	/***
 	 * Method that makes the primary game grid
 	 * @return gameGrid
 	 */
-	public static GridPane gameGrid() {
+	public GridPane gameGrid() {
 
 		GridPane gameGrid = new GridPane();
 
@@ -22,40 +30,47 @@ public class GameGridMaker {
 		gameGrid.getStyleClass().add(styleGetter.getStyle());
 
 		//TODO: FIGURE OUT HOW TO CHANGE FOCUS ON FULL TEXT FIELD
-		for (int col = 0; col < 6; col++) {
-			for (int row = 0; row < 5; row++) {
+		for (int row = 0; row < 6; row++) {
 
-				TextField rec = new TextField();
+			List<TextField> textFieldListForRow = new ArrayList<>();
 
-				rec.setMaxSize(60, 40);
-				rec.setAlignment(Pos.CENTER);
+			for (int col = 0; col < 5; col++) {
 
-				GridPane.setRowIndex(rec, col);
-				GridPane.setColumnIndex(rec, row);
+				TextField charSquare = new TextField();
 
-				GridPane.setMargin(rec, new Insets(7));
+				if (row != 0) {
+					charSquare.setDisable(true);
+				}
 
-				gameGrid.add(rec, row, col);
+				charSquare.setMaxSize(60, 40);
+				charSquare.setAlignment(Pos.CENTER);
 
-				rec.getStyleClass().add("square");
+				GridPane.setRowIndex(charSquare, row);
+				GridPane.setColumnIndex(charSquare, col);
 
-				rec.setPadding(new Insets(5));
+				GridPane.setMargin(charSquare, new Insets(7));
+
+				gameGrid.add(charSquare, col, row);
+
+				charSquare.getStyleClass().add("square");
+
+				charSquare.setPadding(new Insets(5));
 
 				//MAKES ALL LETTERS UPPER CASE
-				rec.setTextFormatter(new TextFormatter<>((change) -> {
+				charSquare.setTextFormatter(new TextFormatter<>((change) -> {
 					change.setText(change.getText().toUpperCase());
 					return change;
 				}));
 
-				rec.setBackground(new Background(new BackgroundFill(Color.DARKGREY, new CornerRadii(5),
-						Insets.EMPTY)));
+				CharLimiter.Limit(charSquare);
 
-				CharLimiter.Limit(rec);
+				textFieldListForRow.add(charSquare);
 
 			}
 
-		}
+			textFieldListByRow.add(textFieldListForRow);
 
+		}
 
 		return gameGrid;
 	}

@@ -23,9 +23,13 @@ public class GameScenePrimary extends BorderPane {
 
 		VBox vBoxGrid = new VBox();
 
+		GameGridMaker gameGridMaker = new GameGridMaker();
+
 		HBox hBoxGrid = new HBox();
 
 		StyleGetter styleGetter = new StyleGetter();
+
+//		List<TextField> textFields = gameGridMaker.getTextFieldList();
 
 		Label gameName = GameName.labelCreate("WORDLE");
 		gameName.setAlignment(Pos.TOP_CENTER);
@@ -37,7 +41,7 @@ public class GameScenePrimary extends BorderPane {
 		this.maxWidth(1000);
 		this.maxHeight(600);
 
-		vBoxGrid.getChildren().add(GameGridMaker.gameGrid());
+		vBoxGrid.getChildren().addAll(gameGridMaker.gameGrid());
 		vBoxGrid.setAlignment(Pos.TOP_CENTER);
 
 		hBoxGrid.getChildren().add(vBoxGrid);
@@ -51,5 +55,30 @@ public class GameScenePrimary extends BorderPane {
 		this.getStylesheets().add(styleGetter.getStyle());
 		this.getStyleClass().add("paneBackground");
 
+
+//		rec.setBackground(new Background(new BackgroundFill(Color.DARKGREY, new CornerRadii(5),
+//				Insets.EMPTY)));
+//
+//		rec.setText(LetterChecker.getAllLetters(playerGuess.getText()));
+//
+//		submit.setAlignment(Pos.CENTER);
+//
+//		submit.setOnAction(e -> {
+//
+//			rec.setText(LetterChecker.getAllLetters(playerGuess.getText()));
+//
+//			if (rec.getText().equals(playerGuess.getText())) {
+//
+//				rec.setBackground(new Background(new BackgroundFill(Color.GREEN, new CornerRadii(5),
+//						Insets.EMPTY)));
+//
+//			} else {]
+//
+//				rec.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5),
+//						Insets.EMPTY)));
+//
+//			}
+//
+//		});
 	}
 }

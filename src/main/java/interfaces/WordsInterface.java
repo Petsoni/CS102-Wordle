@@ -6,7 +6,8 @@ public interface WordsInterface {
 
 	/***
 	 * Method that returns all 5-letter words from a certain site (dictionary)
-	 * @return Collections.singletonList()
+	 * @return wordsList
 	 */
-	List<String> getAllWords();
+	List<String> scrapeWords();
+
 }

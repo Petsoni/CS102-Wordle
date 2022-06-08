@@ -40,3 +40,10 @@
     -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
+
+.answer-field {
+    -fx-padding: 10px;
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
+    -fx-max-width: 300px;
+    -fx-font-size: 15px;
+}
