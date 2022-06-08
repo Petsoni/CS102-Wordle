@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import utils.RandomWordSelector;
 
 public class HelloApplication extends Application {
 
@@ -22,8 +23,6 @@ public class HelloApplication extends Application {
 		stage.setScene(loginFormScene);
 		stage.getIcons().add(icon);
 		stage.show();
-
-
 
 	}
 

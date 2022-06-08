@@ -1,11 +1,17 @@
 package utils;
 
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 import java.util.List;
 
 public class SetOnActionUtil {
 
+	/***
+	 * Method that sets an action to a textField when the enter key is pressed and moves to the next
+	 * textField
+	 * @param textFieldList
+	 */
 	public static void setOnAction(List<List<TextField>> textFieldList) {
 
 		for (int i = 0; i < textFieldList.size(); i++) {
@@ -29,10 +35,10 @@ public class SetOnActionUtil {
 								textFieldList.get(0).get(0).requestFocus();
 
 							} else {
+
 								textField.setOnKeyPressed(e1 -> {
 
-									if (e1.getCode().equals(javafx.scene.input.KeyCode.ENTER)) {
-
+									if (e1.getCode().equals(KeyCode.ENTER)) {
 
 										textFieldList.get(finalI + 1).forEach((textField1) -> {
 											textField1.setDisable(false);

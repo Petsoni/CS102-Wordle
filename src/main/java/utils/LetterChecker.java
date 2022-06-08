@@ -4,26 +4,27 @@ import java.util.Locale;
 
 public class LetterChecker {
 
-	//method that checks all letters in a word and compares it to the letters of the other word
-	public static boolean checkLetters(String word, String otherWord) {
+	//method that compares the letters of a given word with the letters of a given word
+	public static boolean checkLetters(String word, String wordToCheck) {
 
-		//convert both words to lowercase
-		word = word.toUpperCase(Locale.ROOT);
-		otherWord = otherWord.toUpperCase(Locale.ROOT);
+		//convert the word to lowercase
+		word = word.toLowerCase(Locale.ENGLISH);
+		wordToCheck = wordToCheck.toLowerCase(Locale.ENGLISH);
 
-		//check if the words are the same length
-		if (word.length() != otherWord.length()) {
+		//check if the word is the same length as the word to check
+		if (word.length() != wordToCheck.length()) {
 			return false;
 		}
 
-		//check if the words contain the same letters
+		//check if the letters of the word are the same as the letters of the word to check
 		for (int i = 0; i < word.length(); i++) {
-			if (!word.contains(String.valueOf(otherWord.charAt(i)))) {
+			if (word.charAt(i) != wordToCheck.charAt(i)) {
 				return false;
 			}
 		}
 
 		return true;
+
 	}
 
 }
