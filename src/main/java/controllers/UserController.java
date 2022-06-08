@@ -55,7 +55,7 @@ public class UserController {
 	 * Method that takes in a word and saves it in the database
 	 * @param user
 	 */
-	public static void save(User user) {
+	public static User save(User user) {
 
 		try {
 
@@ -77,13 +77,15 @@ public class UserController {
 			e.printStackTrace();
 		}
 
+		return user;
+
 	}
 
 	/***
 	 * Method that updates the given word in the database
 	 * @param user
 	 */
-	public static void update(User user) {
+	public static User update(User user) {
 
 		try {
 
@@ -104,6 +106,8 @@ public class UserController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		return user;
 
 	}
 

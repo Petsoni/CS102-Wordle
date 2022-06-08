@@ -1,6 +1,7 @@
 package com.example.cs102wordle;
 
 import building_classes.GameScenePrimary;
+import building_classes.LoginScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,7 +15,7 @@ public class HelloApplication extends Application {
 	@Override
 	public void start(Stage stage) {
 
-		Scene loginFormScene = new Scene(new GameScenePrimary(stage), 1000, 800);
+		Scene loginFormScene = new Scene(new LoginScene(stage), 500, 400);
 		stage.setScene(loginFormScene);
 		stage.show();
 

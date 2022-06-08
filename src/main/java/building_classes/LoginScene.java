@@ -90,7 +90,7 @@ public class LoginScene extends GridPane {
 				throw new WrongUsernameOrPasswordException("Wrong username or password");
 			} else {
 
-				Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1000, 600);
+				Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1200, 700);
 				stage.setScene(gameScene);
 				stage.show();
 
