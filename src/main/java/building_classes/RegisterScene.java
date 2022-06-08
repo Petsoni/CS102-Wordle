@@ -111,6 +111,9 @@ public class RegisterScene extends GridPane {
 
 				UserController.save(newUser);
 
+				AlertUtil.showAlert("Success", "Successful registration", "User registered successfully",
+						Alert.AlertType.INFORMATION);
+
 				Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
 				stage.setScene(scene);
 				stage.show();

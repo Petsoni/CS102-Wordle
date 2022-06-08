@@ -2,13 +2,11 @@ package building_classes;
 
 import controllers.UserController;
 import exceptions.WrongUsernameOrPasswordException;
+import exceptions.alerts.AlertUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -90,8 +88,12 @@ public class LoginScene extends GridPane {
 				throw new WrongUsernameOrPasswordException("Wrong username or password");
 			} else {
 
+				AlertUtil.showAlert("Login Successful", "Welcome " + userTextField.getText(), "",
+						Alert.AlertType.INFORMATION);
+
 				Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1200, 700);
 				stage.setScene(gameScene);
+				stage.getIcons().add(icon);
 				stage.show();
 
 			}
@@ -100,6 +102,7 @@ public class LoginScene extends GridPane {
 		registerBtn.setOnAction(e -> {
 			Scene registerScene = new Scene(new RegisterScene(this.stage), 500, 400);
 			stage.setScene(registerScene);
+			stage.getIcons().add(icon);
 			stage.show();
 		});
 	}

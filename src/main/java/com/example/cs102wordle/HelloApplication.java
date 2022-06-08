@@ -4,9 +4,12 @@ import building_classes.GameScenePrimary;
 import building_classes.LoginScene;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class HelloApplication extends Application {
+
+	Image icon = new Image("wordle-game-icon.png");
 
 	/***
 	 * Main starting method that starts up the application
@@ -17,6 +20,7 @@ public class HelloApplication extends Application {
 
 		Scene loginFormScene = new Scene(new LoginScene(stage), 500, 400);
 		stage.setScene(loginFormScene);
+		stage.getIcons().add(icon);
 		stage.show();
 
 
