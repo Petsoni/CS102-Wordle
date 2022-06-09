@@ -5,8 +5,9 @@ module com.example.cs102wordle {
 	requires java.sql;
 	requires java.persistence;
 	requires org.hibernate.orm.core;
+	requires org.junit.jupiter.api;
 
-	exports com.example.cs102wordle;
+	exports com.example.Main;
 	exports building_classes;
 	opens building_classes to javafx.fxml;
 	exports utils;

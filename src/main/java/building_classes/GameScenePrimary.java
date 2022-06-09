@@ -31,8 +31,6 @@ public class GameScenePrimary extends BorderPane {
 
 		StyleGetter styleGetter = new StyleGetter();
 
-		WordScrapper wordScrapper = new WordScrapper();
-
 		String answer = RandomWordSelector.getRandomWord();
 
 		Label gameName = GameName.labelCreate("WORDLE");
@@ -57,6 +55,8 @@ public class GameScenePrimary extends BorderPane {
 		var textFieldListByRow = gameGridMaker.getTextFieldListByRow();
 
 		SetOnActionUtil.setOnAction(textFieldListByRow);
+
+		LetterChecker.getWordAndCheckWithAnswer(textFieldListByRow, answer);
 
 		//style
 		this.stage.setResizable(false);

@@ -1,7 +1,6 @@
 package utils;
 
 import interfaces.WordsInterface;
-import javafx.event.ActionEvent;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

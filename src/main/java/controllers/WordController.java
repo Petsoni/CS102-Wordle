@@ -124,4 +124,20 @@ public class WordController {
 
 	}
 
+	/***
+	 * Method that takes in a list of strings(words) and saves them in the database
+	 * @param words
+	 * @return words
+	 */
+	public static List<String> saveAllWords(List<String> words) {
+
+		for (String word : words) {
+			Word word1 = new Word();
+			word1.setValue(word);
+			save(word1);
+		}
+
+		return words;
+	}
+
 }

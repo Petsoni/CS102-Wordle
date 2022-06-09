@@ -1,12 +1,12 @@
-package com.example.cs102wordle;
+package com.example.Main;
 
-import building_classes.GameScenePrimary;
 import building_classes.LoginScene;
+import controllers.WordController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import utils.RandomWordSelector;
+import utils.WordScrapper;
 
 public class HelloApplication extends Application {
 

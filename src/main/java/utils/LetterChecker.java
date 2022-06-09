@@ -1,30 +1,40 @@
 package utils;
 
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+
+import java.util.List;
 import java.util.Locale;
 
 public class LetterChecker {
 
-	//method that compares the letters of a given word with the letters of a given word
-	public static boolean checkLetters(String word, String wordToCheck) {
+	//method that combines the characters of a given word into a string
+	public static String getWordAndCheckWithAnswer(List<List<TextField>> textFieldList, String answer) {
 
-		//convert the word to lowercase
-		word = word.toLowerCase(Locale.ENGLISH);
-		wordToCheck = wordToCheck.toLowerCase(Locale.ENGLISH);
+		String word = "";
 
-		//check if the word is the same length as the word to check
-		if (word.length() != wordToCheck.length()) {
-			return false;
-		}
+		for (int i = 0; i < textFieldList.size(); i++) {
 
-		//check if the letters of the word are the same as the letters of the word to check
-		for (int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) != wordToCheck.charAt(i)) {
-				return false;
+			List<TextField> textFieldListForRow = textFieldList.get(i);
+
+			for (int j = 0; j < textFieldListForRow.size(); j++) {
+
+				TextField textField = textFieldListForRow.get(j);
+
+				word += textField.getText();
+
+				word = word.toUpperCase();
+
 			}
 		}
 
-		return true;
+		if (word.equals(answer)) {
+			return "Correct";
+		} else {
+			return "Incorrect";
+		}
 
 	}
+
 
 }
