@@ -12,7 +12,9 @@ public class SetOnActionUtil {
 	 * textField
 	 * @param textFieldList
 	 */
-	public static void setOnAction(List<List<TextField>> textFieldList) {
+	public static void setOnAction(List<List<TextField>> textFieldList, String answer) {
+
+		LetterChecker letterChecker = new LetterChecker();
 
 		for (int i = 0; i < textFieldList.size(); i++) {
 
@@ -42,7 +44,9 @@ public class SetOnActionUtil {
 
 										textFieldList.get(finalI + 1).forEach((textField1) -> {
 											textField1.setDisable(false);
+											letterChecker.checkGuess(textFieldList, answer);
 										});
+
 										textFieldList.get(finalI + 1).get(0).requestFocus();
 									}
 								});

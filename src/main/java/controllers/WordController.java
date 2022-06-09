@@ -140,4 +140,32 @@ public class WordController {
 		return words;
 	}
 
+
+	public static boolean checkIfWordExists(String word) {
+
+		try {
+			connection = DBConnection.openConnection();
+			PreparedStatement checkIfExistsStmt = connection.prepareStatement("SELECT * FROM word WHERE value = ?;");
+			checkIfExistsStmt.setString(1, word);
+			ResultSet set = checkIfExistsStmt.executeQuery();
+			if (set.next()) {
+				return true;
+			}
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+	public static boolean checkIfWordIsTooLongOrTooShort(String word) {
+
+		if (word.length() != 5) {
+			return true;
+		}
+		return false;
+
+	}
+
 }

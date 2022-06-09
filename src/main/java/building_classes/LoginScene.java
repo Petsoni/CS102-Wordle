@@ -82,21 +82,29 @@ public class LoginScene extends GridPane {
 		//ACTION FUNCTIONS
 		loginBtn.setOnAction(e -> {
 
-			boolean result = UserController.checkLoginDetails(userTextField.getText(), pwField.getText());
+			try {
+				boolean result = UserController.checkLoginDetails(userTextField.getText(),
+						pwField.getText());
 
-			if (!result) {
-				throw new WrongUsernameOrPasswordException("Wrong username or password");
-			} else {
+				if (!result) {
+					AlertUtil.showAlert("Bad login", "Incorrect username or password", "",
+							Alert.AlertType.ERROR);
+				} else {
 
-				AlertUtil.showAlert("Login Successful", "Welcome " + userTextField.getText(), "",
-						Alert.AlertType.INFORMATION);
+					AlertUtil.showAlert("Login Successful", "Welcome " + userTextField.getText(), "",
+							Alert.AlertType.INFORMATION);
 
-				Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1200, 700);
-				stage.setScene(gameScene);
-				stage.getIcons().add(icon);
-				stage.show();
+					Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1200, 700);
+					stage.setScene(gameScene);
+					stage.getIcons().add(icon);
+					stage.show();
 
+				}
+			} catch (WrongUsernameOrPasswordException exception) {
+				exception.printStackTrace();
 			}
+
+
 		});
 
 		registerBtn.setOnAction(e -> {

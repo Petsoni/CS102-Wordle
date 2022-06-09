@@ -1,5 +1,7 @@
 package entities;
 
+import utils.LetterChecker;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,7 +13,7 @@ public class Score {
 	private Integer id;
 
 	@Column(name = "value", nullable = false)
-	private Double value;
+	private Double value = 11.0;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_fk", nullable = false)

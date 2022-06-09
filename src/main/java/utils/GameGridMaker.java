@@ -62,7 +62,7 @@ public class GameGridMaker {
 					return change;
 				}));
 
-				CharLimiter.Limit(charSquare);
+				CharLimiter.Limit(charSquare, 1);
 
 				textFieldListForRow.add(charSquare);
 

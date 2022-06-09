@@ -1,15 +1,16 @@
 package building_classes;
 
+import entities.Score;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.*;
-
-import java.util.List;
 
 public class GameScenePrimary extends BorderPane {
 
@@ -23,7 +24,11 @@ public class GameScenePrimary extends BorderPane {
 
 		this.stage = stage;
 
+		//IMPORTS
+
 		VBox vBoxGrid = new VBox();
+
+		Button newWordButton = new Button("Add New Word");
 
 		GameGridMaker gameGridMaker = new GameGridMaker();
 
@@ -33,11 +38,16 @@ public class GameScenePrimary extends BorderPane {
 
 		String answer = RandomWordSelector.getRandomWord();
 
+		Score score = new Score();
+
 		Label gameName = GameName.labelCreate("WORDLE");
 		gameName.setAlignment(Pos.TOP_CENTER);
 
 		//positioning
 		this.setTop(gameName);
+		this.setLeft(ScoreDisplay.scoreDisplay(score));
+		newWordButton.setFocusTraversable(false);
+		this.setBottom(newWordButton);
 
 		//GAME GRID
 		this.maxWidth(1000);
@@ -54,9 +64,15 @@ public class GameScenePrimary extends BorderPane {
 
 		var textFieldListByRow = gameGridMaker.getTextFieldListByRow();
 
-		SetOnActionUtil.setOnAction(textFieldListByRow);
+		SetOnActionUtil.setOnAction(textFieldListByRow, answer);
 
-		LetterChecker.getWordAndCheckWithAnswer(textFieldListByRow, answer);
+		System.out.println(answer);
+
+		newWordButton.setOnAction(e -> {
+			Scene scene = new Scene(new NewWordScene(stage), 500, 400);
+			stage.setScene(scene);
+			stage.show();
+		});
 
 		//style
 		this.stage.setResizable(false);

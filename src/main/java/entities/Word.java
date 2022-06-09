@@ -13,6 +13,18 @@ public class Word {
 	@Column(name = "value", nullable = false, length = 10)
 	private String value;
 
+	public Word() {
+	}
+
+	public Word(Integer id, String value) {
+		this.id = id;
+		this.value = value;
+	}
+
+	public Word(String value) {
+		this.value = value;
+	}
+
 	public Integer getId() {
 		return id;
 	}

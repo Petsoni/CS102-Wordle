@@ -1,12 +1,10 @@
 package com.example.Main;
 
-import building_classes.LoginScene;
-import controllers.WordController;
+import building_classes.GameScenePrimary;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import utils.WordScrapper;
 
 public class HelloApplication extends Application {
 
@@ -19,7 +17,7 @@ public class HelloApplication extends Application {
 	@Override
 	public void start(Stage stage) {
 
-		Scene loginFormScene = new Scene(new LoginScene(stage), 500, 400);
+		Scene loginFormScene = new Scene(new GameScenePrimary(stage), 1200, 700);
 		stage.setScene(loginFormScene);
 		stage.getIcons().add(icon);
 		stage.show();

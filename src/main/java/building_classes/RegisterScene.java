@@ -98,25 +98,30 @@ public class RegisterScene extends GridPane {
 			String username = usernameTextField.getText();
 			String password = passwordTextField.getText();
 
-			boolean result = UserController.checkUsername(username);
+			try {
+				boolean result = UserController.checkUsername(username);
 
-			System.out.println(result);
+				System.out.println(result);
 
-			if (result) {
-				AlertUtil.showAlert("Username already exists", "Username already exists", "Please choose " +
-						"another username", Alert.AlertType.ERROR);
-			} else {
+				if (result) {
+					AlertUtil.showAlert("Username already exists", "Username already exists",
+							"Please choose " +
+									"another username", Alert.AlertType.ERROR);
+				} else {
 
-				User newUser = new User(name, surname, username, password);
+					User newUser = new User(name, surname, username, password);
 
-				UserController.save(newUser);
+					UserController.save(newUser);
 
-				AlertUtil.showAlert("Success", "Successful registration", "User registered successfully",
-						Alert.AlertType.INFORMATION);
+					AlertUtil.showAlert("Success", "Successful registration", "User registered successfully",
+							Alert.AlertType.INFORMATION);
 
-				Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
-				stage.setScene(scene);
-				stage.show();
+					Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
+					stage.setScene(scene);
+					stage.show();
+				}
+			} catch (UserAlreadyExistsException exception) {
+				exception.printStackTrace();
 			}
 		});
 

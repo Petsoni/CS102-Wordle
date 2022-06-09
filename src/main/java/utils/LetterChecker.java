@@ -1,5 +1,6 @@
 package utils;
 
+import entities.Score;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
@@ -9,9 +10,9 @@ import java.util.Locale;
 public class LetterChecker {
 
 	//method that combines the characters of a given word into a string
-	public static String getWordAndCheckWithAnswer(List<List<TextField>> textFieldList, String answer) {
+	public void checkGuess(List<List<TextField>> textFieldList, String answer) {
 
-		String word = "";
+		StyleGetter styleGetter = new StyleGetter();
 
 		for (int i = 0; i < textFieldList.size(); i++) {
 
@@ -21,17 +22,24 @@ public class LetterChecker {
 
 				TextField textField = textFieldListForRow.get(j);
 
-				word += textField.getText();
+				String playerLetter = textField.getText();
 
-				word = word.toUpperCase();
+				textField.getStylesheets().add(styleGetter.getStyle());
 
+				if (playerLetter.equals(answer.substring(j, j + 1))) {
+
+					textField.getStyleClass().add("field-green");
+
+				}else if (answer.indexOf(playerLetter) > -1) {
+
+					textField.getStyleClass().add("field-yellow");
+
+				} else {
+
+					textField.getStyleClass().add("square");
+
+				}
 			}
-		}
-
-		if (word.equals(answer)) {
-			return "Correct";
-		} else {
-			return "Incorrect";
 		}
 
 	}
