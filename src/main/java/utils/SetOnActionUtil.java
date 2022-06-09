@@ -44,7 +44,7 @@ public class SetOnActionUtil {
 
 										textFieldList.get(finalI + 1).forEach((textField1) -> {
 											textField1.setDisable(false);
-											letterChecker.checkGuess(textFieldList, answer);
+											letterChecker.checkGuess(textFieldListForRow, answer);
 										});
 
 										textFieldList.get(finalI + 1).get(0).requestFocus();

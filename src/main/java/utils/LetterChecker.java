@@ -10,39 +10,34 @@ import java.util.Locale;
 public class LetterChecker {
 
 	//method that combines the characters of a given word into a string
-	public void checkGuess(List<List<TextField>> textFieldList, String answer) {
+	public void checkGuess(List<TextField> textFieldList, String answer) {
 
 		StyleGetter styleGetter = new StyleGetter();
 
 		for (int i = 0; i < textFieldList.size(); i++) {
 
-			List<TextField> textFieldListForRow = textFieldList.get(i);
+			TextField textField = textFieldList.get(i);
 
-			for (int j = 0; j < textFieldListForRow.size(); j++) {
+			String playerLetter = textField.getText();
 
-				TextField textField = textFieldListForRow.get(j);
+			textField.getStylesheets().add(styleGetter.getStyle());
 
-				String playerLetter = textField.getText();
+			if (playerLetter.equals(answer.substring(i, i + 1))) {
 
-				textField.getStylesheets().add(styleGetter.getStyle());
+				textField.getStyleClass().add("field-green");
 
-				if (playerLetter.equals(answer.substring(j, j + 1))) {
+			} else if (answer.indexOf(playerLetter) > -1) {
 
-					textField.getStyleClass().add("field-green");
+				textField.getStyleClass().add("field-yellow");
 
-				}else if (answer.indexOf(playerLetter) > -1) {
+			} else {
 
-					textField.getStyleClass().add("field-yellow");
+				textField.getStyleClass().add("square");
 
-				} else {
-
-					textField.getStyleClass().add("square");
-
-				}
 			}
 		}
-
 	}
 
-
 }
+
+
