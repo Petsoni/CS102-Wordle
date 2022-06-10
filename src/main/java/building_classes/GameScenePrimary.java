@@ -1,16 +1,18 @@
 package building_classes;
 
 import entities.Score;
+import entities.User;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.*;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameScenePrimary extends BorderPane {
 
@@ -20,7 +22,7 @@ public class GameScenePrimary extends BorderPane {
 	 * Method that returns the main pane for the game with all of its assets
 	 * @return borderPane
 	 */
-	public GameScenePrimary(Stage stage) {
+	public GameScenePrimary(Stage stage, User user) {
 
 		this.stage = stage;
 
@@ -64,7 +66,7 @@ public class GameScenePrimary extends BorderPane {
 
 		var textFieldListByRow = gameGridMaker.getTextFieldListByRow();
 
-		SetOnActionUtil.setOnAction(textFieldListByRow, answer);
+		SetOnActionUtil.setOnAction(textFieldListByRow, answer, user);
 
 		System.out.println(answer);
 

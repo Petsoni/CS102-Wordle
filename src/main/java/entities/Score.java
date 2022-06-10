@@ -17,7 +17,7 @@ public class Score {
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_fk", nullable = false)
-	private User userFk;
+	private User user;
 
 	public Integer getId() {
 		return id;
@@ -35,12 +35,12 @@ public class Score {
 		this.value = value;
 	}
 
-	public User getUserFk() {
-		return userFk;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserFk(User userFk) {
-		this.userFk = userFk;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

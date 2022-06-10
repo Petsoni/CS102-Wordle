@@ -1,6 +1,7 @@
 package com.example.Main;
 
 import building_classes.GameScenePrimary;
+import entities.User;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -17,7 +18,7 @@ public class HelloApplication extends Application {
 	@Override
 	public void start(Stage stage) {
 
-		Scene loginFormScene = new Scene(new GameScenePrimary(stage), 1200, 700);
+		Scene loginFormScene = new Scene(new GameScenePrimary(stage, new User()), 1200, 700);
 		stage.setScene(loginFormScene);
 		stage.getIcons().add(icon);
 		stage.show();

@@ -26,12 +26,13 @@ public class WordScrapper implements WordsInterface {
 			try {
 
 				Document document = Jsoup.connect(
-						"https://www.thefreedictionary.com/5-letter-words.htm").get();
+						"https://wordfind.com/length/5-letter-words/").get();
 
-				Elements elements = document.select("#dCont > .TCont");
+				Elements elements = document.select("#5-letter-words");
 
 				for (Element el : elements) {
-					String word = el.select("ul > li").text().toUpperCase(Locale.ROOT);
+					String word = el.select("ul > li > a").text().toUpperCase(Locale.ROOT);
+
 					wordList.addAll(List.of(word.split(" ")));
 				}
 

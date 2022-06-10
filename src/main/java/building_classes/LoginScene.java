@@ -1,6 +1,7 @@
 package building_classes;
 
 import controllers.UserController;
+import entities.User;
 import exceptions.WrongUsernameOrPasswordException;
 import exceptions.alerts.AlertUtil;
 import javafx.geometry.Insets;
@@ -85,22 +86,22 @@ public class LoginScene extends GridPane {
 			try {
 				boolean result = UserController.checkLoginDetails(userTextField.getText(),
 						pwField.getText());
-
-				if (!result) {
-					AlertUtil.showAlert("Bad login", "Incorrect username or password", "",
-							Alert.AlertType.ERROR);
-				} else {
-
-					AlertUtil.showAlert("Login Successful", "Welcome " + userTextField.getText(), "",
-							Alert.AlertType.INFORMATION);
-
-					Scene gameScene = new Scene(new GameScenePrimary(this.stage), 1200, 700);
-					stage.setScene(gameScene);
-					stage.getIcons().add(icon);
-					stage.show();
-
+				if(!result){
+					throw new WrongUsernameOrPasswordException("Greska");
 				}
+
+				AlertUtil.showAlert("Login Successful", "Welcome " + userTextField.getText(), "",
+						Alert.AlertType.INFORMATION);
+
+				Scene gameScene = new Scene(new GameScenePrimary(this.stage, new User()), 1200, 700);
+				stage.setScene(gameScene);
+				stage.getIcons().add(icon);
+				stage.show();
+
+
 			} catch (WrongUsernameOrPasswordException exception) {
+				AlertUtil.showAlert("Bad login", "Incorrect username or password", "",
+						Alert.AlertType.ERROR);
 				exception.printStackTrace();
 			}
 

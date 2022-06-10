@@ -1,22 +1,37 @@
 package utils;
 
+import controllers.ScoreController;
 import entities.Score;
+import entities.User;
+import exceptions.alerts.AlertUtil;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 
 import java.util.List;
-import java.util.Locale;
 
+/***
+ * Class for all the methods that are used in the game for player inputs
+ */
 public class LetterChecker {
 
-	//method that combines the characters of a given word into a string
-	public void checkGuess(List<TextField> textFieldList, String answer) {
+	/***
+	 * Method that checks if the characters in a word match the characters in the answer
+	 * @param textFieldList
+	 * @param answer
+	 */
+	public boolean checkGuess(List<TextField> textFieldList, String answer, User user) {
 
 		StyleGetter styleGetter = new StyleGetter();
+		Score score = new Score();
+		score.setUser(user);
+
+		int count = 0;
+		double value = 0;
 
 		for (int i = 0; i < textFieldList.size(); i++) {
 
 			TextField textField = textFieldList.get(i);
+
 
 			String playerLetter = textField.getText();
 
@@ -26,6 +41,9 @@ public class LetterChecker {
 
 				textField.getStyleClass().add("field-green");
 
+				count++;
+
+				value += 50;
 			} else if (answer.indexOf(playerLetter) > -1) {
 
 				textField.getStyleClass().add("field-yellow");
@@ -36,6 +54,35 @@ public class LetterChecker {
 
 			}
 		}
+
+		if (count == 5) {
+			AlertUtil.showAlert("You won!", "You won the game!", "", Alert.AlertType.INFORMATION);
+			score.setValue(value);
+//			ScoreController.saveScore(score);
+			return true;
+		}
+
+		return false;
+
+	}
+
+	/***
+	 * Method that combines the characters in a a list of text fields to make a word
+	 * @param textFieldList
+	 * @return word
+	 */
+	public String combineCharsToMakeAWord(List<TextField> textFieldList) {
+
+		String word = "";
+
+		for (int i = 0; i < textFieldList.size(); i++) {
+
+			TextField textField = textFieldList.get(i);
+
+			word += textField.getText();
+		}
+
+		return word;
 	}
 
 }
