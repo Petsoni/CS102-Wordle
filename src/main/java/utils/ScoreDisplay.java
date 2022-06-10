@@ -33,11 +33,11 @@ public class ScoreDisplay extends Node {
 		//style
 		labelScore.getStyleClass().add("score");
 
-		if(scorePlayer.getValue() < 10) {
-			scoreNumber.getStyleClass().add("score-low");
-		} else {
-			scoreNumber.getStyleClass().add("score-high");
-		}
+//		if(scorePlayer.getValue() < 10) {
+//			scoreNumber.getStyleClass().add("score-low");
+//		} else {
+//			scoreNumber.getStyleClass().add("score-high");
+//		}
 
 
 		hBoxScore.getChildren().addAll(labelScore, scoreNumber);

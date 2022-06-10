@@ -13,7 +13,7 @@ public class Score {
 	private Integer id;
 
 	@Column(name = "value", nullable = false)
-	private Double value = 11.0;
+	private Double value;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_fk", nullable = false)

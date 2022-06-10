@@ -71,7 +71,7 @@ public class GameScenePrimary extends BorderPane {
 		System.out.println(answer);
 
 		newWordButton.setOnAction(e -> {
-			Scene scene = new Scene(new NewWordScene(stage), 500, 400);
+			Scene scene = new Scene(new NewWordScene(stage, new User()), 500, 400);
 			stage.setScene(scene);
 			stage.show();
 		});

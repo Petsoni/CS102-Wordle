@@ -35,6 +35,11 @@ public class User {
 		this.password = password;
 	}
 
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
+
 	public User(String name, String surname, String username, String password) {
 		this.name = name;
 		this.surname = surname;
@@ -82,4 +87,14 @@ public class User {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", surname='" + surname + '\'' +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				'}';
+	}
 }

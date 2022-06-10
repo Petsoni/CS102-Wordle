@@ -1,6 +1,7 @@
 package controllers;
 
 import connection.DBConnection;
+import entities.Score;
 import entities.User;
 
 import java.sql.Connection;
@@ -15,8 +16,8 @@ public class UserController {
 	private static Connection connection;
 
 	/***
-	 * Method that returns all words from the database
-	 * @return words
+	 * Method that returns all users from the database
+	 * @return userList
 	 */
 	public static List<User> getAllUsers() {
 
@@ -52,7 +53,7 @@ public class UserController {
 	}
 
 	/***
-	 * Method that takes in a word and saves it in the database
+	 * Method that takes in a user and saves it in the database
 	 * @param user
 	 */
 	public static User save(User user) {
@@ -82,7 +83,7 @@ public class UserController {
 	}
 
 	/***
-	 * Method that updates the given word in the database
+	 * Method that updates the given user in the database
 	 * @param user
 	 */
 	public static User update(User user) {
@@ -112,7 +113,7 @@ public class UserController {
 	}
 
 	/***
-	 * Method that deletes the given word from the database
+	 * Method that deletes the given user from the database
 	 * @param user
 	 */
 	public static void delete(User user) {
@@ -200,6 +201,24 @@ public class UserController {
 
 		return false;
 
+	}
+
+	/***
+	 * Method that gets the user with the given username
+	 * @param username
+	 * @return
+	 */
+	public static User getUserByUsername(String username) {
+
+		List<User> userList = getAllUsers();
+
+		for (User user : userList) {
+			if (user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+
+		return null;
 	}
 
 }

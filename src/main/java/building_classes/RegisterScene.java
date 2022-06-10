@@ -104,9 +104,7 @@ public class RegisterScene extends GridPane {
 				System.out.println(result);
 
 				if (result) {
-					AlertUtil.showAlert("Username already exists", "Username already exists",
-							"Please choose " +
-									"another username", Alert.AlertType.ERROR);
+					throw new UserAlreadyExistsException("Username already exists");
 				} else {
 
 					User newUser = new User(name, surname, username, password);
@@ -121,6 +119,9 @@ public class RegisterScene extends GridPane {
 					stage.show();
 				}
 			} catch (UserAlreadyExistsException exception) {
+				AlertUtil.showAlert("Username already exists", "Username already exists",
+						"Please choose " +
+								"another username", Alert.AlertType.ERROR);
 				exception.printStackTrace();
 			}
 		});

@@ -1,4 +1,166 @@
 package controllers;
 
+import connection.DBConnection;
+import entities.Score;
+import entities.User;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScoreController {
+
+	public static Connection connection;
+
+	/***
+	 * Method that returns all scores from the database
+	 * @return scoreList
+	 */
+	public static List<Score> getAllScores() {
+
+		List<Score> scoreList = new ArrayList<>();
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement getAllStmt = connection.prepareStatement("SELECT * FROM score;");
+
+			ResultSet set = getAllStmt.executeQuery();
+
+			while (set.next()) {
+				Score score = new Score();
+
+				score.setId(set.getInt("id"));
+				score.setValue(set.getDouble("value"));
+
+			}
+
+			connection.close();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return scoreList;
+
+	}
+
+	/***
+	 * Method that takes in a score and saves it in the database
+	 * @return score
+	 */
+	public static Score save(Score score) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement saveStmt = connection.prepareStatement("INSERT INTO score (value) VALUES (?)" +
+					";");
+
+			saveStmt.setDouble(1, score.getValue());
+
+			saveStmt.executeUpdate();
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return score;
+
+	}
+
+	/***
+	 * Method that updates the given score in the database
+	 * @param score
+	 */
+	public static Score update(Score score) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement updateStmt = connection.prepareStatement(
+					"UPDATE score SET value = ? WHERE id = ?");
+
+			updateStmt.setDouble(1, score.getValue());
+
+			updateStmt.execute();
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return score;
+
+	}
+
+	/***
+	 * Method that deletes the given score in the database
+	 * @param score
+	 */
+	public static void delete(Score score) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement deleteStmt = connection.prepareStatement(
+					"DELETE FROM score WHERE id= ?");
+
+			deleteStmt.setInt(1, score.getId());
+
+			deleteStmt.execute();
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/***
+	 * Method that returns the score based on the given userId
+	 * @return scoreList
+	 */
+	public static Score getScoreForUser(Score score, int userId) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement getScoreStmt = connection.prepareStatement("SELECT * FROM score WHERE " +
+					"user_fk = ?");
+
+			getScoreStmt.setInt(1, userId);
+
+			ResultSet set = getScoreStmt.executeQuery();
+
+			if (set.next()) {
+
+				score.setId(set.getInt("id"));
+				score.setValue(set.getDouble("value"));
+
+				return score;
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return score;
+
+	}
+
 }

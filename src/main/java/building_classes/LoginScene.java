@@ -1,6 +1,7 @@
 package building_classes;
 
 import controllers.UserController;
+import entities.Score;
 import entities.User;
 import exceptions.WrongUsernameOrPasswordException;
 import exceptions.alerts.AlertUtil;
@@ -87,13 +88,17 @@ public class LoginScene extends GridPane {
 				boolean result = UserController.checkLoginDetails(userTextField.getText(),
 						pwField.getText());
 				if(!result){
-					throw new WrongUsernameOrPasswordException("Greska");
+					throw new WrongUsernameOrPasswordException("Wrong username or password!");
 				}
 
-				AlertUtil.showAlert("Login Successful", "Welcome " + userTextField.getText(), "",
+				User currentUser = UserController.getUserByUsername(userTextField.getText());
+
+				AlertUtil.showAlert("Login Successful",
+						"Welcome " + currentUser.getUsername() + "!",
+						"",
 						Alert.AlertType.INFORMATION);
 
-				Scene gameScene = new Scene(new GameScenePrimary(this.stage, new User()), 1200, 700);
+				Scene gameScene = new Scene(new GameScenePrimary(this.stage, currentUser), 1200, 700);
 				stage.setScene(gameScene);
 				stage.getIcons().add(icon);
 				stage.show();

@@ -1,11 +1,13 @@
 package building_classes;
 
 import controllers.WordController;
+import entities.User;
 import entities.Word;
 import exceptions.WordToLongException;
 import exceptions.alerts.AlertUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -19,7 +21,7 @@ public class NewWordScene extends GridPane {
 
 	private Stage stage;
 
-	public NewWordScene(Stage stage) {
+	public NewWordScene(Stage stage, User user) {
 
 		this.stage = stage;
 
@@ -80,9 +82,7 @@ public class NewWordScene extends GridPane {
 				boolean wordToLong = WordController.checkIfWordIsTooLongOrTooShort(newWordField.getText());
 
 				if (wordToLong) {
-					AlertUtil.showAlert("Can't add word", "Your word is too long or too short", "The word " +
-							"must be 5 characters long", Alert.AlertType.ERROR);
-
+					throw new WordToLongException("Word is too long");
 				} else {
 
 					Word word = new Word(newWordField.getText());
@@ -93,10 +93,16 @@ public class NewWordScene extends GridPane {
 				}
 
 			} catch (WordToLongException exception) {
+				AlertUtil.showAlert("Can't add word", "Your word is too long or too short", "The word " +
+						"must be 5 characters long", Alert.AlertType.ERROR);
 				exception.printStackTrace();
 			}
 
 
+		});
+
+		backBtn.setOnAction(e -> {
+			Scene scene = new Scene(new GameScenePrimary(this.stage, new User()), 1200, 700);
 		});
 
 	}
