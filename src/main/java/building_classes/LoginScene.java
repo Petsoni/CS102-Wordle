@@ -98,7 +98,7 @@ public class LoginScene extends GridPane {
 						"",
 						Alert.AlertType.INFORMATION);
 
-				Scene gameScene = new Scene(new GameScenePrimary(this.stage, currentUser), 1200, 700);
+				Scene gameScene = new Scene(new GameScenePrimary(this.stage, currentUser), 1300, 700);
 				stage.setScene(gameScene);
 				stage.getIcons().add(icon);
 				stage.show();
@@ -109,7 +109,6 @@ public class LoginScene extends GridPane {
 						Alert.AlertType.ERROR);
 				exception.printStackTrace();
 			}
-
 
 		});
 

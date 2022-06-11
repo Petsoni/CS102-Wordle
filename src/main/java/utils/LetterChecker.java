@@ -22,6 +22,7 @@ public class LetterChecker {
 	public boolean checkGuess(List<TextField> textFieldList, String answer, User user) {
 
 		StyleGetter styleGetter = new StyleGetter();
+
 		Score score = new Score();
 		score.setUser(user);
 
@@ -31,7 +32,6 @@ public class LetterChecker {
 		for (int i = 0; i < textFieldList.size(); i++) {
 
 			TextField textField = textFieldList.get(i);
-
 
 			String playerLetter = textField.getText();
 
@@ -44,9 +44,12 @@ public class LetterChecker {
 				count++;
 
 				value += 50;
-			} else if (answer.indexOf(playerLetter) > -1) {
+
+			} else if (answer.contains(playerLetter)) {
 
 				textField.getStyleClass().add("field-yellow");
+
+				value += 25;
 
 			} else {
 
@@ -57,8 +60,16 @@ public class LetterChecker {
 
 		if (count == 5) {
 			AlertUtil.showAlert("You won!", "You won the game!", "", Alert.AlertType.INFORMATION);
+
+			value += 75;
+
 			score.setValue(value);
-//			ScoreController.saveScore(score);
+
+			ScoreController.save(score);
+
+			System.out.println(score.getValue());
+			System.out.println(score.getUser());
+
 			return true;
 		}
 

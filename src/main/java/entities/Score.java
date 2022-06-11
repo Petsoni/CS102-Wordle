@@ -13,11 +13,29 @@ public class Score {
 	private Integer id;
 
 	@Column(name = "value", nullable = false)
-	private Double value;
+	private Double value = 0.0;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "user_fk", nullable = false)
 	private User user;
+
+	public Score() {
+	}
+
+	public Score(Integer id, Double value, User user) {
+		this.id = id;
+		this.value = value;
+		this.user = user;
+	}
+
+	public Score(Double value, User user) {
+		this.value = value;
+		this.user = user;
+	}
+
+	public Score(Double value) {
+		this.value = value;
+	}
 
 	public Integer getId() {
 		return id;

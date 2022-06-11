@@ -60,10 +60,12 @@ public class ScoreController {
 
 			connection = DBConnection.openConnection();
 
-			PreparedStatement saveStmt = connection.prepareStatement("INSERT INTO score (value) VALUES (?)" +
-					";");
+
+			PreparedStatement saveStmt = connection.prepareStatement("INSERT INTO score (value, user_fk) " +
+					"VALUES (?,?);");
 
 			saveStmt.setDouble(1, score.getValue());
+			saveStmt.setDouble(2, score.getUser().getId());
 
 			saveStmt.executeUpdate();
 
@@ -133,30 +135,16 @@ public class ScoreController {
 	 * Method that returns the score based on the given userId
 	 * @return scoreList
 	 */
-	public static Score getScoreForUser(Score score, int userId) {
+	public static Score getScoreForUser(int userId) {
 
-		try {
+		List<User> userList = UserController.getAllUsers();
 
-			connection = DBConnection.openConnection();
+		Score score = new Score();
 
-			PreparedStatement getScoreStmt = connection.prepareStatement("SELECT * FROM score WHERE " +
-					"user_fk = ?");
-
-			getScoreStmt.setInt(1, userId);
-
-			ResultSet set = getScoreStmt.executeQuery();
-
-			if (set.next()) {
-
-				score.setId(set.getInt("id"));
-				score.setValue(set.getDouble("value"));
-
-				return score;
+		for (User user : userList) {
+			if (user.getId() == userId) {
+				score.setUser(user);
 			}
-
-
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 
 		return score;

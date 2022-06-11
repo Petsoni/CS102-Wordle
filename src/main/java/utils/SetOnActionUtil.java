@@ -3,12 +3,13 @@ package utils;
 import controllers.WordController;
 import entities.User;
 import exceptions.alerts.AlertUtil;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /***
  * Class that is used for all the actions that are used in the game for player inputs
@@ -23,7 +24,8 @@ public class SetOnActionUtil {
 	public static void setOnAction(List<List<TextField>> textFieldList, String answer, User user) {
 
 		LetterChecker letterChecker = new LetterChecker();
-		AtomicBoolean correctAnswer = new AtomicBoolean(false);
+
+		SceneSwitch sceneSwitch = new SceneSwitch();
 
 		int i;
 
@@ -75,21 +77,26 @@ public class SetOnActionUtil {
 											textFieldList.get(finalI + 1).forEach((textField1) -> {
 
 												textField1.setDisable(false);
-												letterChecker.checkGuess(textFieldListForRow, answer, user);
-
-												correctAnswer.set(true);
 
 											});
 
+											boolean guessCheck =
+													letterChecker.checkGuess(textFieldListForRow,
+													answer, user);
+
+											if (guessCheck) {
+												AlertUtil.showAlert("You won!", "You won the game!", "",
+														Alert.AlertType.CONFIRMATION);
+											} else {
+												textFieldList.get(finalI + 1).get(0).requestFocus();
+											}
 										}
-
-										textFieldList.get(finalI + 1).get(0).requestFocus();
-
 									}
 								});
 							}
 						} else {
 							textFieldListForRow.get(finalJ + 1).requestFocus();
+							textFieldListForRow.get(finalI + 1).setVisible(true);
 						}
 
 					} else if (e.getCode().equals(KeyCode.BACK_SPACE) && finalJ > 0) {
@@ -98,14 +105,9 @@ public class SetOnActionUtil {
 					}
 
 				});
-				if (correctAnswer.get()) {
-					break;
-				}
-			}
-			if (correctAnswer.get()) {
-				break;
 			}
 		}
 
 	}
+
 }
