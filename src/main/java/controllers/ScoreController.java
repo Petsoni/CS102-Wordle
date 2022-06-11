@@ -151,4 +151,32 @@ public class ScoreController {
 
 	}
 
+
+	public static Score getUsersTotalScore(int userId) {
+
+		Score score = new Score();
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement getTotalScoreStmt = connection.prepareStatement("SELECT SUM(value) AS total_score FROM score WHERE user_fk = ?;");
+
+			getTotalScoreStmt.setInt(1, userId);
+
+			ResultSet set = getTotalScoreStmt.executeQuery();
+
+			while (set.next()) {
+				score.setValue(set.getDouble("total_score"));
+			}
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return score;
+
+	}
 }

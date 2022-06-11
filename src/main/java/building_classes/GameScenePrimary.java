@@ -38,12 +38,15 @@ public class GameScenePrimary extends BorderPane {
 
 		Button newWordButton = new Button("Add New Word");
 
+		Button seeYourScoreButton = new Button("See Your Score");
+
 		GameGridMaker gameGridMaker = new GameGridMaker();
 
 		Label usernameLabel = new Label("Playing as: " + currentUser.getUsername());
 		usernameLabel.getStyleClass().add("score");
 
 		HBox hBoxGrid = new HBox();
+		HBox hBoxButtons = new HBox();
 
 		StyleGetter styleGetter = new StyleGetter();
 
@@ -69,8 +72,10 @@ public class GameScenePrimary extends BorderPane {
 		hBoxGrid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		hBoxGrid.setAlignment(Pos.CENTER);
 
+		hBoxButtons.getChildren().addAll(newWordButton, seeYourScoreButton);
+
 		this.setCenter(hBoxGrid);
-		this.setBottom(newWordButton);
+		this.setBottom(hBoxButtons);
 		this.setRight(usernameLabel);
 
 		var textFieldListByRow = gameGridMaker.getTextFieldListByRow();
@@ -83,6 +88,12 @@ public class GameScenePrimary extends BorderPane {
 
 		newWordButton.setOnAction(e -> {
 			Scene scene = new Scene(new NewWordScene(stage, new User()), 500, 400);
+			stage.setScene(scene);
+			stage.show();
+		});
+
+		seeYourScoreButton.setOnAction(e -> {
+			Scene scene = new Scene(new ScoreOverviewScene(stage, currentUser), 300, 400);
 			stage.setScene(scene);
 			stage.show();
 		});
