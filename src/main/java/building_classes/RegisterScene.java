@@ -91,6 +91,12 @@ public class RegisterScene extends GridPane {
 		hbRegisterBtn.getChildren().add(registerBtn);
 		this.add(hbRegisterBtn, 1, 5);
 
+		Button backBtn = new Button("Go back");
+		HBox hbBackBtn = new HBox(10);
+		hbBackBtn.setAlignment(Pos.BOTTOM_RIGHT);
+		hbBackBtn.getChildren().add(backBtn);
+		this.add(hbBackBtn, 0, 5);
+
 		//ACTIONS
 		registerBtn.setOnAction(e -> {
 			String name = nameTextField.getText();
@@ -125,6 +131,14 @@ public class RegisterScene extends GridPane {
 		});
 
 		registerBtn.getStyleClass().add("buttons");
+
+		backBtn.setOnAction(e -> {
+			Scene scene = new Scene(new LoginScene(stage), 500, 400);
+			stage.setScene(scene);
+			stage.show();
+		});
+
+		backBtn.getStyleClass().add("buttons");
 
 		this.stage.centerOnScreen();
 

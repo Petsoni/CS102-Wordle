@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -49,22 +50,28 @@ public class LoginScene extends GridPane {
 		Label passwordLabel = new Label("Password:");
 		this.add(passwordLabel, 0, 2);
 
-		PasswordField pwField = new PasswordField();
-		pwField.setPromptText("Password");
-		this.add(pwField, 1, 2);
+		PasswordField passwordTextField = new PasswordField();
+		passwordTextField.setPromptText("Password");
+		this.add(passwordTextField, 1, 2);
 
 		//BUTTONS
 		Button loginBtn = new Button("Login");
 		HBox hbLoginBtn = new HBox(10);
 		hbLoginBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbLoginBtn.getChildren().add(loginBtn);
-		this.add(hbLoginBtn, 1, 4);
+		this.add(hbLoginBtn, 2, 4);
 
 		Button registerBtn = new Button("Register");
 		HBox hbRegisterBtn = new HBox(10);
 		hbRegisterBtn.setAlignment(Pos.BOTTOM_RIGHT);
 		hbRegisterBtn.getChildren().add(registerBtn);
-		this.add(hbRegisterBtn, 0, 4);
+		this.add(hbRegisterBtn, 1, 4);
+
+		Button updatePasswordButton = new Button("Update password");
+		HBox hbUpdatePasswordButtons = new HBox(10);
+		hbUpdatePasswordButtons.setAlignment(Pos.BOTTOM_RIGHT);
+		hbUpdatePasswordButtons.getChildren().add(updatePasswordButton);
+		this.add(hbUpdatePasswordButtons, 0, 4);
 
 		//GRIDING
 		this.setAlignment(Pos.CENTER);
@@ -80,7 +87,7 @@ public class LoginScene extends GridPane {
 		loginText.getStyleClass().add("loginTitle");
 
 		userTextField.getStyleClass().add("loginField");
-		pwField.getStyleClass().add("loginField");
+		passwordTextField.getStyleClass().add("loginField");
 
 		//ACTION FUNCTIONS
 		loginBtn.setOnAction(e -> {
@@ -88,7 +95,7 @@ public class LoginScene extends GridPane {
 			try {
 
 				boolean result = UserController.checkLoginDetails(userTextField.getText(),
-						pwField.getText());
+						passwordTextField.getText());
 
 				if(!result){
 					throw new WrongUsernameOrPasswordException("Wrong username or password!");
@@ -114,7 +121,6 @@ public class LoginScene extends GridPane {
 			}
 
 		});
-
 		loginBtn.getStyleClass().add("buttons");
 
 		registerBtn.setOnAction(e -> {
@@ -123,7 +129,20 @@ public class LoginScene extends GridPane {
 			stage.getIcons().add(icon);
 			stage.show();
 		});
-
 		registerBtn.getStyleClass().add("buttons");
+
+		updatePasswordButton.setOnAction(e -> {
+			Scene registerScene = new Scene(new UpdatePasswordScene(this.stage), 500, 400);
+			stage.setScene(registerScene);
+			stage.getIcons().add(icon);
+			stage.show();
+		});
+		updatePasswordButton.getStyleClass().add("buttons");
+
+		passwordTextField.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)){
+				loginBtn.fire();
+			}
+		});
 	}
 }

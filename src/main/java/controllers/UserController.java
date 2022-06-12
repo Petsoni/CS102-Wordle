@@ -113,6 +113,34 @@ public class UserController {
 	}
 
 	/***
+	 * Method that updates the given user in the database
+	 * @param user
+	 */
+	public static User updateUserPassword(User user) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement updateStmt = connection.prepareStatement(
+					"UPDATE user SET password = ? WHERE id = ?");
+
+			updateStmt.setString(1, user.getPassword());
+			updateStmt.setInt(2, user.getId());
+
+			updateStmt.execute();
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return user;
+
+	}
+
+	/***
 	 * Method that deletes the given user from the database
 	 * @param user
 	 */
@@ -204,21 +232,73 @@ public class UserController {
 	}
 
 	/***
+	 * Method that checks if the username is already taken
+	 * @param passwod
+	 * @return true if the username is already taken
+	 */
+	public static boolean checkPassword(String password) {
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM user WHERE password = ?;");
+
+			stmt.setString(1, password);
+
+			ResultSet set = stmt.executeQuery();
+
+			if (set.next()) {
+				return true;
+			}
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
+	/***
 	 * Method that gets the user with the given username
 	 * @param username
-	 * @return
+	 * @return user
 	 */
 	public static User getUserByUsername(String username) {
 
-		List<User> userList = getAllUsers();
+		User user = new User();
 
-		for (User user : userList) {
-			if (user.getUsername().equals(username)) {
-				return user;
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM user WHERE username = ?;");
+
+			stmt.setString(1, username);
+
+			ResultSet set = stmt.executeQuery();
+
+			if (set.next()) {
+				user.setId(set.getInt("id"));
+				user.setName(set.getString("name"));
+				user.setSurname(set.getString("surname"));
+				user.setUsername(set.getString("username"));
+				user.setPassword(set.getString("password"));
+
 			}
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		return null;
+		return user;
 	}
 
 

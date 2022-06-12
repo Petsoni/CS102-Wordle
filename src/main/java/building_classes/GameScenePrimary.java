@@ -64,8 +64,7 @@ public class GameScenePrimary extends BorderPane {
 
 		//positioning
 		this.setTop(gameName);
-		this.setLeft(ScoreDisplay.scoreDisplay(currentUser));
-		newWordButton.setFocusTraversable(false);
+
 
 		//GAME GRID
 		this.maxWidth(1000);
@@ -81,6 +80,7 @@ public class GameScenePrimary extends BorderPane {
 		vBoxUsername.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
 		vBoxGrid.getChildren().addAll(gameGridMaker.gameGrid());
+		vBoxGrid.requestFocus();
 		vBoxGrid.setAlignment(Pos.TOP_CENTER);
 		vBoxGrid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
@@ -96,6 +96,9 @@ public class GameScenePrimary extends BorderPane {
 		this.setCenter(hBoxGrid);
 		this.setBottom(hBoxButtons);
 		this.setRight(vBoxUsername);
+		this.setLeft(ScoreDisplay.scoreDisplay(currentUser));
+
+		newWordButton.setFocusTraversable(false);
 
 		var textFieldListByRow = gameGridMaker.getTextFieldListByRow();
 
