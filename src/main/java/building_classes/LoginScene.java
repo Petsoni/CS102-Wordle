@@ -112,11 +112,15 @@ public class LoginScene extends GridPane {
 
 		});
 
+		loginBtn.getStyleClass().add("buttons");
+
 		registerBtn.setOnAction(e -> {
 			Scene registerScene = new Scene(new RegisterScene(this.stage), 500, 400);
 			stage.setScene(registerScene);
 			stage.getIcons().add(icon);
 			stage.show();
 		});
+
+		registerBtn.getStyleClass().add("buttons");
 	}
 }

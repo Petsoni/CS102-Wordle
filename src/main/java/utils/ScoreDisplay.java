@@ -1,6 +1,8 @@
 package utils;
 
+import controllers.ScoreController;
 import entities.Score;
+import entities.User;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -13,7 +15,7 @@ public class ScoreDisplay extends Node {
 	 * Method that returns the node of the score display
 	 * @return
 	 */
-	public static Node scoreDisplay(Score scorePlayer) {
+	public static Node scoreDisplay(User user) {
 
 		//imports
 		HBox hBoxScore = new HBox();
@@ -22,9 +24,11 @@ public class ScoreDisplay extends Node {
 
 		StyleGetter styleGetter = new StyleGetter();
 
+		Score score = ScoreController.getUsersTotalScore(user.getId());
+
 		Label labelScore = new Label("Score:");
 
-		Label scoreNumber = new Label(" " + scorePlayer.getValue());
+		Label scoreNumber = new Label(" " + score.getValue());
 
 		//styleGetter
 		labelScore.getStylesheets().add(styleGetter.getStyle());
@@ -33,11 +37,11 @@ public class ScoreDisplay extends Node {
 		//style
 		labelScore.getStyleClass().add("score");
 
-//		if(scorePlayer.getValue() < 10) {
-//			scoreNumber.getStyleClass().add("score-low");
-//		} else {
-//			scoreNumber.getStyleClass().add("score-high");
-//		}...
+		if(score.getValue() < 500) {
+			scoreNumber.getStyleClass().add("score-low");
+		} else {
+			scoreNumber.getStyleClass().add("score-high");
+		}
 
 
 		hBoxScore.getChildren().addAll(labelScore, scoreNumber);

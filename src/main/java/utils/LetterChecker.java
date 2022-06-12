@@ -1,11 +1,15 @@
 package utils;
 
+import building_classes.FinishScene;
+import building_classes.GameScenePrimary;
 import controllers.ScoreController;
 import entities.Score;
 import entities.User;
 import exceptions.alerts.AlertUtil;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -19,7 +23,7 @@ public class LetterChecker {
 	 * @param textFieldList
 	 * @param answer
 	 */
-	public boolean checkGuess(List<TextField> textFieldList, String answer, User user) {
+	public boolean checkGuess(List<TextField> textFieldList, String answer, User user, Stage stage) {
 
 		StyleGetter styleGetter = new StyleGetter();
 
@@ -49,7 +53,7 @@ public class LetterChecker {
 
 				textField.getStyleClass().add("field-yellow");
 
-				value += 25;
+				value += 20;
 
 			} else {
 
@@ -59,7 +63,10 @@ public class LetterChecker {
 		}
 
 		if (count == 5) {
-			AlertUtil.showAlert("You won!", "You won the game!", "", Alert.AlertType.INFORMATION);
+
+			Scene scene = new Scene(new FinishScene(stage, user, answer), 450, 300);
+			stage.setScene(scene);
+			stage.show();
 
 			value += 75;
 
@@ -75,25 +82,6 @@ public class LetterChecker {
 
 		return false;
 
-	}
-
-	/***
-	 * Method that combines the characters in a a list of text fields to make a word
-	 * @param textFieldList
-	 * @return word
-	 */
-	public String combineCharsToMakeAWord(List<TextField> textFieldList) {
-
-		String word = "";
-
-		for (int i = 0; i < textFieldList.size(); i++) {
-
-			TextField textField = textFieldList.get(i);
-
-			word += textField.getText();
-		}
-
-		return word;
 	}
 
 }

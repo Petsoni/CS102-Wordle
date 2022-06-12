@@ -1,7 +1,10 @@
 package utils;
 
+import building_classes.FinishScene;
+import building_classes.PlayAgainScene;
 import controllers.WordController;
 import entities.User;
+import exceptions.NonExistentWordException;
 import exceptions.alerts.AlertUtil;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,22 +13,28 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /***
  * Class that is used for all the actions that are used in the game for player inputs
  */
 public class SetOnActionUtil {
 
+	private Stage stage;
+
 	/***
 	 * Method that sets an action to a textField when the enter key is pressed and moves to the next
 	 * textField
 	 * @param textFieldList
 	 */
-	public static void setOnAction(List<List<TextField>> textFieldList, String answer, User user) {
+	public void setOnAction(List<List<TextField>> textFieldList, String answer, User user,
+							Stage stage) {
 
 		LetterChecker letterChecker = new LetterChecker();
 
 		SceneSwitch sceneSwitch = new SceneSwitch();
+
+		this.stage = stage;
 
 		int i;
 
@@ -43,14 +52,21 @@ public class SetOnActionUtil {
 				int finalJ = j;
 				int finalI = i;
 
+				OnlyLettersUtil.allowOnlyLetters(textField);
+
 				textField.setOnKeyPressed(e -> {
+
 					if (textField.getText().length() == 1) {
 
 						if (finalJ == textFieldListForRow.size() - 1) {
 
 							if (finalI == textFieldList.size() - 1) {
 
-								textFieldList.get(0).get(0).requestFocus();
+								Scene scene = new Scene(
+										new PlayAgainScene(stage, user, answer),
+										450, 300);
+								stage.setScene(scene);
+								stage.show();
 
 							} else {
 
@@ -58,45 +74,46 @@ public class SetOnActionUtil {
 
 									if (e1.getCode().equals(KeyCode.ENTER)) {
 
-										String playerInput = letterChecker.combineCharsToMakeAWord(
+										String playerInput = CharCombiner.combineCharsToMakeAWord(
 												textFieldListForRow);
 
-										System.out.println(playerInput);
+										try {
 
-										boolean exists = WordController.checkIfWordExists(playerInput);
+											boolean exists = WordController.checkIfWordExists(playerInput);
 
-										if (!exists) {
+											if (!exists) {
 
+												throw new NonExistentWordException("Word is non-existent");
+
+											} else {
+
+												textFieldList.get(finalI + 1).forEach((textField1) -> {
+
+													textField1.setDisable(false);
+
+												});
+
+												boolean guessCheck =
+														letterChecker.checkGuess(textFieldListForRow,
+																answer, user, stage);
+
+												if (!guessCheck) {
+													textFieldList.get(finalI + 1).get(0).requestFocus();
+												}
+
+											}
+										}catch (NonExistentWordException exception) {
 											AlertUtil.showAlert("Non Existent Word",
 													"The word " + playerInput + " does not exist in the" +
 															" dictionary",
 													"", Alert.AlertType.ERROR);
-
-										} else {
-
-											textFieldList.get(finalI + 1).forEach((textField1) -> {
-
-												textField1.setDisable(false);
-
-											});
-
-											boolean guessCheck =
-													letterChecker.checkGuess(textFieldListForRow,
-													answer, user);
-
-											if (guessCheck) {
-												AlertUtil.showAlert("You won!", "You won the game!", "",
-														Alert.AlertType.CONFIRMATION);
-											} else {
-												textFieldList.get(finalI + 1).get(0).requestFocus();
-											}
+											exception.printStackTrace();
 										}
 									}
 								});
 							}
 						} else {
 							textFieldListForRow.get(finalJ + 1).requestFocus();
-							textFieldListForRow.get(finalI + 1).setVisible(true);
 						}
 
 					} else if (e.getCode().equals(KeyCode.BACK_SPACE) && finalJ > 0) {

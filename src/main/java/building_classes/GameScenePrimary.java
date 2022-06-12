@@ -3,8 +3,11 @@ package building_classes;
 import controllers.ScoreController;
 import entities.Score;
 import entities.User;
+import exceptions.alerts.AlertUtil;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -27,6 +30,8 @@ public class GameScenePrimary extends BorderPane {
 
 		this.stage = stage;
 
+		SetOnActionUtil setOnActionUtil = new SetOnActionUtil();
+
 		User currentUser = user;
 
 		System.out.println(currentUser.getId());
@@ -38,7 +43,7 @@ public class GameScenePrimary extends BorderPane {
 
 		Button newWordButton = new Button("Add New Word");
 
-		Button seeYourScoreButton = new Button("See Your Score");
+		Button exitButton = new Button("Exit");
 
 		GameGridMaker gameGridMaker = new GameGridMaker();
 
@@ -57,12 +62,13 @@ public class GameScenePrimary extends BorderPane {
 
 		//positioning
 		this.setTop(gameName);
-		this.setLeft(ScoreDisplay.scoreDisplay(score));
+		this.setLeft(ScoreDisplay.scoreDisplay(currentUser));
 		newWordButton.setFocusTraversable(false);
 
 		//GAME GRID
 		this.maxWidth(1000);
 		this.maxHeight(600);
+		this.setPadding(new Insets(25, 25, 25, 25));
 
 		vBoxGrid.getChildren().addAll(gameGridMaker.gameGrid());
 		vBoxGrid.setAlignment(Pos.TOP_CENTER);
@@ -72,7 +78,10 @@ public class GameScenePrimary extends BorderPane {
 		hBoxGrid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		hBoxGrid.setAlignment(Pos.CENTER);
 
-		hBoxButtons.getChildren().addAll(newWordButton, seeYourScoreButton);
+		hBoxButtons.getChildren().addAll(newWordButton, exitButton);
+		hBoxButtons.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+		hBoxButtons.setAlignment(Pos.CENTER);
+		hBoxButtons.setSpacing(20);
 
 		this.setCenter(hBoxGrid);
 		this.setBottom(hBoxButtons);
@@ -80,7 +89,7 @@ public class GameScenePrimary extends BorderPane {
 
 		var textFieldListByRow = gameGridMaker.getTextFieldListByRow();
 
-		SetOnActionUtil.setOnAction(textFieldListByRow, answer, user);
+		setOnActionUtil.setOnAction(textFieldListByRow, answer, user, stage);
 
 		System.out.println(answer);
 
@@ -92,11 +101,14 @@ public class GameScenePrimary extends BorderPane {
 			stage.show();
 		});
 
-		seeYourScoreButton.setOnAction(e -> {
-			Scene scene = new Scene(new ScoreOverviewScene(stage, currentUser), 300, 400);
-			stage.setScene(scene);
-			stage.show();
+		newWordButton.getStyleClass().add("buttons");
+
+		exitButton.setOnAction(e -> {
+			AlertUtil.showAlert("Thank you for playing!", "Have a nice day!", "Goodbye!", Alert.AlertType.WARNING);
+			stage.close();
 		});
+
+		exitButton.getStyleClass().add("buttons");
 
 		//style
 		this.stage.setResizable(false);

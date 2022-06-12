@@ -1,13 +1,12 @@
 package building_classes;
 
 import entities.User;
+import entities.Word;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -15,15 +14,11 @@ import javafx.stage.Stage;
 import utils.SceneSwitch;
 import utils.StyleGetter;
 
-public class FinishScene extends GridPane {
+public class PlayAgainScene extends GridPane {
 
 	private Stage stage;
 
-	/***
-	 * Method that creates a pane with a login form
-	 * @return gridPane
-	 */
-	public FinishScene(Stage stage, User user, String word) {
+	public PlayAgainScene(Stage stage, User user, String word) {
 
 		this.stage = stage;
 
@@ -36,20 +31,21 @@ public class FinishScene extends GridPane {
 		this.getStylesheets().add(styleGetter.getStyle());
 
 		//ELEMENTS
-		Label finishLabel = new Label("YOU GOT IT RIGHT");
+		Label finishLabel = new Label("GAME OVER");
 		this.add(finishLabel, 0, 0, 2, 1);
 
-		Label messageLabel = new Label("Congratulations " + user.getUsername() + "!");
+		Label messageLabel = new Label("Sorry " + user.getUsername() + "..." );
 		this.add(messageLabel, 0, 1);
 
-		Label messageLabelDescription = new Label("You got the" +
-				" word right!" + "(" + word + ")");
+		Label messageLabelDescription = new Label("You didn't get the word " + word + " right...");
 		this.add(messageLabelDescription, 0, 2);
 
 		//BUTTONS
 		Button playAgainBtn = new Button("Play again");
 
 		Button exitBtn = new Button("Exit");
+
+		HBox hbButtons = new HBox();
 
 		playAgainBtn.getStyleClass().add("buttons");
 
@@ -64,16 +60,15 @@ public class FinishScene extends GridPane {
 		this.getStyleClass().add("paneBackground");
 		this.setPadding(new Insets(25, 25, 25, 25));
 
-		HBox hbButtons = new HBox();
-
 		hbButtons.getChildren().addAll(playAgainBtn, exitBtn);
 		hbButtons.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 		hbButtons.setAlignment(Pos.CENTER);
+		hbButtons.setPadding(new Insets(5, 5, 5, 5));
 		hbButtons.setSpacing(20);
 
 		this.add(hbButtons, 0, 4);
 
-		this.stage.setTitle("Congratulations!");
+		this.stage.setTitle("GAME OVER");
 		this.stage.getIcons().add(icon);
 		this.stage.setResizable(false);
 		this.stage.show();
@@ -85,5 +80,8 @@ public class FinishScene extends GridPane {
 			stage.show();
 		});
 
+		exitBtn.setOnAction(e -> {
+			this.stage.close();
+		});
 	}
 }
