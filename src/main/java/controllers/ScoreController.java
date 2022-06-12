@@ -37,6 +37,7 @@ public class ScoreController {
 				score.setId(set.getInt("id"));
 				score.setValue(set.getDouble("value"));
 
+				scoreList.add(score);
 			}
 
 			connection.close();

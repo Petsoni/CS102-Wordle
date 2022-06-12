@@ -12,7 +12,7 @@ public class RandomNumber {
 
 		Random random = new Random();
 
-		int upperBound = 10000 - 505 + 1;
+		int upperBound = 8913 - 1 + 1;
 
 		return random.nextInt(upperBound);
 	}

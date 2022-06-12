@@ -27,11 +27,11 @@ public class LetterChecker {
 
 		StyleGetter styleGetter = new StyleGetter();
 
-		Score score = new Score();
-		score.setUser(user);
-
 		int count = 0;
+
 		double value = 0;
+
+		int rowCount = 0;
 
 		for (int i = 0; i < textFieldList.size(); i++) {
 
@@ -47,13 +47,15 @@ public class LetterChecker {
 
 				count++;
 
-				value += 50;
+				rowCount = i;
+
+				System.out.println("Correct letter");
 
 			} else if (answer.contains(playerLetter)) {
 
 				textField.getStyleClass().add("field-yellow");
 
-				value += 20;
+				System.out.println("Correct letter but not in the right position");
 
 			} else {
 
@@ -64,18 +66,7 @@ public class LetterChecker {
 
 		if (count == 5) {
 
-			Scene scene = new Scene(new FinishScene(stage, user, answer), 450, 300);
-			stage.setScene(scene);
-			stage.show();
 
-			value += 75;
-
-			score.setValue(value);
-
-			ScoreController.save(score);
-
-			System.out.println(score.getValue());
-			System.out.println(score.getUser());
 
 			return true;
 		}

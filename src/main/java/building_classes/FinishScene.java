@@ -6,8 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -29,8 +27,6 @@ public class FinishScene extends GridPane {
 
 		//imports
 		Image icon = new Image("wordle-game-icon.png");
-
-		SceneSwitch sceneSwitch = new SceneSwitch();
 
 		StyleGetter styleGetter = new StyleGetter();
 		this.getStylesheets().add(styleGetter.getStyle());
@@ -83,6 +79,10 @@ public class FinishScene extends GridPane {
 			stage.setScene(scene);
 			stage.setTitle("Wordle");
 			stage.show();
+		});
+
+		exitBtn.setOnAction(e -> {
+			stage.close();
 		});
 
 	}

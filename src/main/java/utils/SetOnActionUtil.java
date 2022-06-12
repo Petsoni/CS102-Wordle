@@ -2,7 +2,9 @@ package utils;
 
 import building_classes.FinishScene;
 import building_classes.PlayAgainScene;
+import controllers.ScoreController;
 import controllers.WordController;
+import entities.Score;
 import entities.User;
 import exceptions.NonExistentWordException;
 import exceptions.alerts.AlertUtil;
@@ -13,7 +15,6 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /***
  * Class that is used for all the actions that are used in the game for player inputs
@@ -31,8 +32,6 @@ public class SetOnActionUtil {
 							Stage stage) {
 
 		LetterChecker letterChecker = new LetterChecker();
-
-		SceneSwitch sceneSwitch = new SceneSwitch();
 
 		this.stage = stage;
 
@@ -96,6 +95,38 @@ public class SetOnActionUtil {
 												boolean guessCheck =
 														letterChecker.checkGuess(textFieldListForRow,
 																answer, user, stage);
+
+												if (guessCheck) {
+
+													Score score = new Score();
+
+													double value = 0;
+
+													value = switch (finalI) {
+														case 0 -> 1000;
+														case 1 -> 750;
+														case 2 -> 500;
+														case 3 -> 250;
+														case 4 -> 100;
+														case 5 -> 50;
+														default -> value;
+													};
+
+													score.setValue(value);
+													score.setUser(user);
+
+													System.out.println(score.getValue());
+													ScoreController.save(score);
+
+													Scene scene = new Scene(
+															new FinishScene(stage, user, answer),
+															450, 300);
+													stage.setScene(scene);
+													stage.show();
+
+													System.out.println("You won!");
+
+												}
 
 												if (!guessCheck) {
 													textFieldList.get(finalI + 1).get(0).requestFocus();
