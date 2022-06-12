@@ -10,21 +10,24 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import utils.SceneSwitch;
 import utils.StyleGetter;
 
 public class PlayAgainScene extends GridPane {
 
 	private Stage stage;
 
+	/***
+	 * Method that creates the Play Again scene
+	 * @param stage
+	 * @param user
+	 * @param word
+	 */
 	public PlayAgainScene(Stage stage, User user, String word) {
 
 		this.stage = stage;
 
 		//imports
 		Image icon = new Image("wordle-game-icon.png");
-
-		SceneSwitch sceneSwitch = new SceneSwitch();
 
 		StyleGetter styleGetter = new StyleGetter();
 		this.getStylesheets().add(styleGetter.getStyle());

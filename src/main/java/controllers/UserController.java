@@ -232,8 +232,8 @@ public class UserController {
 	}
 
 	/***
-	 * Method that checks if the username is already taken
-	 * @param passwod
+	 * Method that checks if the password is already in use
+	 * @param password
 	 * @return true if the username is already taken
 	 */
 	public static boolean checkPassword(String password) {
@@ -302,6 +302,11 @@ public class UserController {
 	}
 
 
+	/***
+	 * Method that gets the user with the given id
+	 * @param id
+	 * @return user
+	 */
 	public static User getUserById(int id) {
 
 		User user = new User();

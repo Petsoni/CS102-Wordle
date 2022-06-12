@@ -10,18 +10,21 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import utils.CharLimiter;
-import utils.SceneSwitch;
 import utils.StyleGetter;
+import utils.WordLengthCheck;
 
 public class NewWordScene extends GridPane {
 
 	private Stage stage;
 
+	/***
+	 * Method that creates a New Word scene.
+	 * @param stage
+	 * @param user
+	 */
 	public NewWordScene(Stage stage, User user) {
 
 		this.stage = stage;
@@ -31,14 +34,22 @@ public class NewWordScene extends GridPane {
 
 		//ELEMENTS
 		Label newWordTitleLabel = new Label("New Word");
-		this.add(newWordTitleLabel, 0, 0, 2, 1);
+		this.add(newWordTitleLabel, 0, 1, 2, 1);
+
+		Label newWordDescriptionLabel = new Label("The word you are about to add to the database needs to " +
+				"be 5 characters long and cannot already exist in the database!");
+		this.add(newWordDescriptionLabel, 0, 5, 3, 2);
+		newWordDescriptionLabel.setMaxWidth(250);
+		newWordDescriptionLabel.setWrapText(true);
+		newWordDescriptionLabel.getStyleClass().add("new-word-desc");
 
 		Label newWordLabel = new Label("Word:");
-		this.add(newWordLabel, 0, 1);
+		this.add(newWordLabel, 0, 3);
+		newWordLabel.getStyleClass().add("all-labels");
 
 		TextField newWordField = new TextField();
 		newWordField.setPromptText("Type in your new word");
-		this.add(newWordField, 1, 1);
+		this.add(newWordField, 1, 3);
 
 		newWordField.setTextFormatter(new TextFormatter<>((change) -> {
 			change.setText(change.getText().toUpperCase());
@@ -72,6 +83,12 @@ public class NewWordScene extends GridPane {
 
 		newWordField.getStyleClass().add("loginField");
 
+		newWordField.setOnKeyPressed(e -> {
+			if (e.getCode().equals(javafx.scene.input.KeyCode.ENTER)) {
+				addWordBtn.fire();
+			}
+		});
+
 		addWordBtn.getStyleClass().add("buttons");
 		backBtn.getStyleClass().add("buttons");
 
@@ -79,7 +96,7 @@ public class NewWordScene extends GridPane {
 
 			try {
 
-				boolean wordToLong = WordController.checkIfWordIsTooLongOrTooShort(newWordField.getText());
+				boolean wordToLong = WordLengthCheck.checkIfWordIsTooLongOrTooShort(newWordField.getText());
 				boolean wordAlreadyExists = WordController.checkIfWordExists(newWordField.getText());
 
 				if (wordToLong) {

@@ -1,7 +1,6 @@
 package building_classes;
 
 import controllers.UserController;
-import entities.Score;
 import entities.User;
 import exceptions.WrongUsernameOrPasswordException;
 import exceptions.alerts.AlertUtil;
@@ -14,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import utils.SceneSwitch;
 import utils.StyleGetter;
 
 public class LoginScene extends GridPane {
@@ -32,8 +30,6 @@ public class LoginScene extends GridPane {
 		//imports
 		Image icon = new Image("wordle-game-icon.png");
 
-		SceneSwitch sceneSwitch = new SceneSwitch();
-
 		StyleGetter styleGetter = new StyleGetter();
 
 		//ELEMENTS
@@ -42,6 +38,7 @@ public class LoginScene extends GridPane {
 
 		Label usernameLabel = new Label("Username:");
 		this.add(usernameLabel, 0, 1);
+		usernameLabel.getStyleClass().add("all-labels");
 
 		TextField userTextField = new TextField();
 		userTextField.setPromptText("Username");
@@ -49,6 +46,7 @@ public class LoginScene extends GridPane {
 
 		Label passwordLabel = new Label("Password:");
 		this.add(passwordLabel, 0, 2);
+		passwordLabel.getStyleClass().add("all-labels");
 
 		PasswordField passwordTextField = new PasswordField();
 		passwordTextField.setPromptText("Password");

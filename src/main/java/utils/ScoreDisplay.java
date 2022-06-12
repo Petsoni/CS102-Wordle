@@ -14,8 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.List;
-
 public class ScoreDisplay extends Node {
 
 	/***
@@ -46,7 +44,7 @@ public class ScoreDisplay extends Node {
 
 		tableView.setEditable(false);
 
-		scoreValues.setMinWidth(225);
+		scoreValues.setMinWidth(120);
 		scoreValues.setCellValueFactory(new PropertyValueFactory<>("value"));
 
 		Label labelScore = new Label("Total score:");
@@ -71,6 +69,8 @@ public class ScoreDisplay extends Node {
 		tableView.setItems(data);
 
 		tableView.getStyleClass().add("score-table");
+
+		tableView.setMaxSize(150, Double.MAX_VALUE);
 
 		tableView.getColumns().add(scoreValues);
 

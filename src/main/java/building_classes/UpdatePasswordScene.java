@@ -12,13 +12,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import utils.FieldsEmptyCheck;
-import utils.SceneSwitch;
 import utils.StyleGetter;
 
 public class UpdatePasswordScene extends GridPane {
 
 	private Stage stage;
 
+	/***
+	 * Method that creates a pane with an update password form
+	 * @return gridPane
+	 */
 	public UpdatePasswordScene(Stage stage) {
 		this.stage = stage;
 
@@ -33,6 +36,7 @@ public class UpdatePasswordScene extends GridPane {
 
 		Label usernameLabel = new Label("Username:");
 		this.add(usernameLabel, 0, 1);
+		usernameLabel.getStyleClass().add("all-labels");
 
 		TextField usernameTextField = new TextField();
 		usernameTextField.setPromptText("Username");
@@ -40,6 +44,7 @@ public class UpdatePasswordScene extends GridPane {
 
 		Label currentPasswordLabel = new Label("Current password:");
 		this.add(currentPasswordLabel, 0, 2);
+		currentPasswordLabel.getStyleClass().add("all-labels");
 
 		PasswordField currentPasswordField = new PasswordField();
 		currentPasswordField.setPromptText("Current password");
@@ -47,6 +52,7 @@ public class UpdatePasswordScene extends GridPane {
 
 		Label newPasswordLabel = new Label("New password:");
 		this.add(newPasswordLabel, 0, 3);
+		newPasswordLabel.getStyleClass().add("all-labels");
 
 		PasswordField newPasswordField = new PasswordField();
 		newPasswordField.setPromptText("New password");
@@ -54,6 +60,7 @@ public class UpdatePasswordScene extends GridPane {
 
 		Label confirmNewPasswordLabel = new Label("Confirm new password:");
 		this.add(confirmNewPasswordLabel, 0, 4);
+		confirmNewPasswordLabel.getStyleClass().add("all-labels");
 
 		PasswordField confirmNewPasswordField = new PasswordField();
 		confirmNewPasswordField.setPromptText("Confirm new");

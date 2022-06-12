@@ -37,13 +37,14 @@ public class SetOnActionUtil {
 
 		int i;
 
+		// for each row
 		for (i = 0; i < textFieldList.size(); i++) {
 
 			List<TextField> textFieldListForRow = textFieldList.get(i);
 
 			int j;
 
-
+			// for each textField in the row
 			for (j = 0; j < textFieldListForRow.size(); j++) {
 
 				TextField textField = textFieldListForRow.get(j);
@@ -55,10 +56,13 @@ public class SetOnActionUtil {
 
 				textField.setOnKeyPressed(e -> {
 
+					//if textfield is not empty
 					if (textField.getText().length() == 1) {
 
+						//if the textfield is the last in the row
 						if (finalJ == textFieldListForRow.size() - 1) {
 
+							//if the textfield is the last in the row and the last in the list
 							if (finalI == textFieldList.size() - 1) {
 
 								Scene scene = new Scene(
@@ -86,12 +90,21 @@ public class SetOnActionUtil {
 
 											} else {
 
+//												//sets the last textfields to be non-editable
+												textFieldList.get(finalI).forEach((textField1) -> {
+
+													textField1.setEditable(false);
+
+												});
+
+												//goes to the next row of textfields
 												textFieldList.get(finalI + 1).forEach((textField1) -> {
 
 													textField1.setDisable(false);
 
 												});
 
+												//checking the player input against the answer
 												boolean guessCheck =
 														letterChecker.checkGuess(textFieldListForRow,
 																answer, user, stage);
@@ -102,6 +115,8 @@ public class SetOnActionUtil {
 
 													double value = 0;
 
+													//enhanced switch statement that sets the score based
+													// on which row the player guess is
 													value = switch (finalI) {
 														case 0 -> 1000;
 														case 1 -> 750;
@@ -115,7 +130,6 @@ public class SetOnActionUtil {
 													score.setValue(value);
 													score.setUser(user);
 
-													System.out.println(score.getValue());
 													ScoreController.save(score);
 
 													Scene scene = new Scene(
@@ -124,10 +138,10 @@ public class SetOnActionUtil {
 													stage.setScene(scene);
 													stage.show();
 
-													System.out.println("You won!");
-
 												}
 
+												//if the player input is not the answer then the next row of textfields
+												//is enabled
 												if (!guessCheck) {
 													textFieldList.get(finalI + 1).get(0).requestFocus();
 												}
@@ -147,12 +161,12 @@ public class SetOnActionUtil {
 								});
 							}
 						} else {
+							//requests focus on the next textfield in the row
 							textFieldListForRow.get(finalJ + 1).requestFocus();
 						}
 
 					} else if (e.getCode().equals(KeyCode.BACK_SPACE) && finalJ > 0) {
 						textFieldListForRow.get(finalJ - 1).requestFocus();
-						System.out.println("aaaaa");
 					}
 
 				});

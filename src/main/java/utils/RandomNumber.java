@@ -1,5 +1,7 @@
 package utils;
 
+import controllers.WordController;
+
 import java.util.Random;
 
 public class RandomNumber {
@@ -12,7 +14,9 @@ public class RandomNumber {
 
 		Random random = new Random();
 
-		int upperBound = 8913 - 1 + 1;
+		int allWordsListSize = WordController.getAllWords().size();
+
+		int upperBound = allWordsListSize - 1 + 1;
 
 		return random.nextInt(upperBound);
 	}

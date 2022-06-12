@@ -141,6 +141,11 @@ public class WordController {
 	}
 
 
+	/***
+	 * Method that checks if the given word already exists in the database
+	 * @param word
+	 * @return
+	 */
 	public static boolean checkIfWordExists(String word) {
 
 		try {
@@ -156,16 +161,6 @@ public class WordController {
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-
-	public static boolean checkIfWordIsTooLongOrTooShort(String word) {
-
-		if (word.length() != 5) {
-			return true;
-		}
-		return false;
-
 	}
 
 }

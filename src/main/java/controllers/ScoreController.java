@@ -168,6 +168,11 @@ public class ScoreController {
 	}
 
 
+	/***
+	 * Method taht returns all scores for the given userId and sums them up
+	 * @param userId
+	 * @return
+	 */
 	public static Score getUsersTotalScore(int userId) {
 
 		Score score = new Score();

@@ -12,9 +12,7 @@ public class RandomWordSelector {
 
 		WordScrapper wordScrapper = new	WordScrapper();
 
-		String randomWord = wordScrapper.scrapeWords().get(randomNumber);
-
-		return randomWord;
+		return wordScrapper.scrapeWords().get(randomNumber);
 
 	}
 

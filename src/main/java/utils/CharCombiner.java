@@ -7,7 +7,7 @@ import java.util.List;
 public class CharCombiner {
 
 	/***
-	 * Method that combines the characters in a a list of text fields to make a word
+	 * Method that combines the characters in a list of text fields to make a word
 	 * @param textFieldList
 	 * @return word
 	 */

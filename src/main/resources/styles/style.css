@@ -87,10 +87,28 @@
 }
 
 /*BUTTONS*/
+@keyframes blink{
+    from {
+        -fx-background-color: #c5c5c5;
+    }
+    to {
+        -fx-background-color: #4de13c;
+    }
+}
+
 .buttons {
     -fx-background-color: #b4f350;
     -fx-padding: 5px;
     -fx-font-size: 15px;
+}
+
+.buttons:hover {
+    -fx-background-color: #37c13c;
+    keyframes: blink;
+}
+
+.buttons:focused {
+    -fx-background-color: #37c13c;
 }
 
 /*SCORE OVERVIEW*/
@@ -109,9 +127,23 @@
     -fx-font-family: "HelveticaNeue";
 }
 
+.new-word-desc {
+    -fx-font-size: 13px;
+    -fx-text-fill: #ff3838;
+    -fx-font-weight: bold;
+    -fx-font-family: "MS Reference Sans Serif";
+}
+
 /*TABLE*/
 .score-table {
     -fx-border-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
     -fx-font-weight: bold;
     -fx-font-size: 15px;
+}
+
+/*LABELS*/
+.all-labels {
+    -fx-font-size: 14px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #f4f894 25%, #7aff6d 50%);
+    -fx-font-weight: bold;
 }

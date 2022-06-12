@@ -1,5 +1,8 @@
 package utils;
 
+/***
+ * Class that is used to get the style.css file and can be called from anywhere in the code
+ */
 public class StyleGetter {
 
 	private String style;

@@ -19,6 +19,10 @@ public class WordScrapper implements WordsInterface {
 
 	private final List<String> wordList = new ArrayList<>();
 
+	/***
+	 * Method that gets all the words from the site and puts them in a list
+	 * @return
+	 */
 	@Override
 	public List<String> scrapeWords() {
 

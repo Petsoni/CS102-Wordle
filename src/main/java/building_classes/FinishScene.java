@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import utils.SceneSwitch;
 import utils.StyleGetter;
 
 public class FinishScene extends GridPane {
@@ -18,7 +17,7 @@ public class FinishScene extends GridPane {
 	private Stage stage;
 
 	/***
-	 * Method that creates a pane with a login form
+	 * Method that creates a pane with a finish scene
 	 * @return gridPane
 	 */
 	public FinishScene(Stage stage, User user, String word) {
