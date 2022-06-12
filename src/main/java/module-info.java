@@ -12,6 +12,7 @@ module com.example.cs102wordle {
 	exports com.example.Main;
 	exports building_classes;
 	opens building_classes to javafx.fxml;
+	opens entities to javafx.base;
 	exports utils;
 	opens utils to javafx.fxml;
 }

@@ -85,5 +85,7 @@ public class FinishScene extends GridPane {
 			stage.close();
 		});
 
+		this.stage.centerOnScreen();
+
 	}
 }

@@ -66,21 +66,21 @@
 
 /*SCORE*/
 .score {
-    -fx-font-size: 15px;
+    -fx-font-size: 20px;
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
     -fx-font-weight: bold;
     -fx-font-family: "MS Reference Sans Serif";
 }
 
 .score-low {
-    -fx-font-size: 15px;
+    -fx-font-size: 20px;
     -fx-text-fill: #ff3838;
     -fx-font-weight: bold;
     -fx-font-family: "MS Reference Sans Serif";
 }
 
 .score-high {
-    -fx-font-size: 15px;
+    -fx-font-size: 20px;
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
     -fx-font-weight: bold;
     -fx-font-family: "MS Reference Sans Serif";
@@ -107,4 +107,11 @@
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
     -fx-font-weight: bold;
     -fx-font-family: "HelveticaNeue";
+}
+
+/*TABLE*/
+.score-table {
+    -fx-border-color: linear-gradient(from 0% 0% to 100% 200%, repeat, #cbf120 25%, #4de13c 50%);
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
 }

@@ -126,5 +126,7 @@ public class RegisterScene extends GridPane {
 
 		registerBtn.getStyleClass().add("buttons");
 
+		this.stage.centerOnScreen();
+
 	}
 }

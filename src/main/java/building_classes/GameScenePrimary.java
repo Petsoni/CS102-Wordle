@@ -1,7 +1,6 @@
 package building_classes;
 
 import controllers.ScoreController;
-import entities.Score;
 import entities.User;
 import exceptions.alerts.AlertUtil;
 import javafx.geometry.Insets;
@@ -15,8 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.*;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameScenePrimary extends BorderPane {
 
@@ -36,10 +33,13 @@ public class GameScenePrimary extends BorderPane {
 
 		System.out.println(currentUser.getId());
 
-		Score score = ScoreController.getScoreForUser(currentUser.getId());
+//		Score score = ScoreController.getLatestScoreForUser(currentUser.getId());
+
+		System.out.println(ScoreController.getAllScoresForUser(currentUser.getId()));
 
 		//IMPORTS
 		VBox vBoxGrid = new VBox();
+		VBox vBoxUsername = new VBox();
 
 		Button newWordButton = new Button("Add New Word");
 
@@ -50,8 +50,10 @@ public class GameScenePrimary extends BorderPane {
 		Label usernameLabel = new Label("Playing as: " + currentUser.getUsername());
 		usernameLabel.getStyleClass().add("score");
 
+
 		HBox hBoxGrid = new HBox();
 		HBox hBoxButtons = new HBox();
+		HBox hBoxUsername = new HBox();
 
 		StyleGetter styleGetter = new StyleGetter();
 
@@ -70,6 +72,14 @@ public class GameScenePrimary extends BorderPane {
 		this.maxHeight(600);
 		this.setPadding(new Insets(25, 25, 25, 25));
 
+		hBoxUsername.getChildren().add(usernameLabel);
+		vBoxGrid.setAlignment(Pos.CENTER);
+		vBoxUsername.setMaxSize(360, Double.MAX_VALUE);
+
+		vBoxUsername.getChildren().add(hBoxUsername);
+		vBoxGrid.setAlignment(Pos.CENTER);
+		vBoxUsername.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
 		vBoxGrid.getChildren().addAll(gameGridMaker.gameGrid());
 		vBoxGrid.setAlignment(Pos.TOP_CENTER);
 		vBoxGrid.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -85,7 +95,7 @@ public class GameScenePrimary extends BorderPane {
 
 		this.setCenter(hBoxGrid);
 		this.setBottom(hBoxButtons);
-		this.setRight(usernameLabel);
+		this.setRight(vBoxUsername);
 
 		var textFieldListByRow = gameGridMaker.getTextFieldListByRow();
 
@@ -96,8 +106,9 @@ public class GameScenePrimary extends BorderPane {
 		System.out.println(currentUser.toString());
 
 		newWordButton.setOnAction(e -> {
-			Scene scene = new Scene(new NewWordScene(stage, new User()), 500, 400);
+			Scene scene = new Scene(new NewWordScene(stage, currentUser), 500, 400);
 			stage.setScene(scene);
+			stage.setTitle("Add new word");
 			stage.show();
 		});
 
@@ -112,6 +123,7 @@ public class GameScenePrimary extends BorderPane {
 
 		//style
 		this.stage.setResizable(false);
+		this.stage.centerOnScreen();
 		this.getStylesheets().add(styleGetter.getStyle());
 		this.getStyleClass().add("paneBackground");
 

@@ -134,18 +134,33 @@ public class ScoreController {
 
 	/***
 	 * Method that returns the score based on the given userId
-	 * @return scoreList
+	 * @return score
 	 */
-	public static Score getScoreForUser(int userId) {
-
-		List<User> userList = UserController.getAllUsers();
+	public static Score getLatestScoreForUser(int userId) {
 
 		Score score = new Score();
 
-		for (User user : userList) {
-			if (user.getId() == userId) {
-				score.setUser(user);
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement getAllStmt = connection.prepareStatement("SELECT * FROM score WHERE score" +
+					".user_fk = ?;");
+
+			ResultSet set = getAllStmt.executeQuery();
+
+			while (set.next()) {
+
+				score.setId(set.getInt("id"));
+				score.setValue(set.getDouble("value"));
+
 			}
+
+			connection.close();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		return score;
@@ -178,6 +193,46 @@ public class ScoreController {
 		}
 
 		return score;
+
+	}
+
+	/***
+	 * Method that returns all scores for the given userId
+	 * @param userId
+	 * @return
+	 */
+	public static List<Score> getAllScoresForUser(int userId) {
+
+		List<Score> scoreList = new ArrayList<>();
+
+		try {
+
+			connection = DBConnection.openConnection();
+
+			PreparedStatement getAllStmt = connection.prepareStatement("SELECT * FROM score WHERE user_fk" +
+					" = ? ORDER BY value DESC;");
+
+			getAllStmt.setInt(1, userId);
+
+			ResultSet set = getAllStmt.executeQuery();
+
+			while (set.next()) {
+				Score score = new Score();
+
+				score.setId(set.getInt("id"));
+				score.setValue(set.getDouble("value"));
+
+				scoreList.add(score);
+			}
+
+			connection.close();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return scoreList;
 
 	}
 }

@@ -27,10 +27,6 @@ public class NewWordScene extends GridPane {
 		this.stage = stage;
 
 		//imports
-		Image icon = new Image("wordle-game-icon.png");
-
-		SceneSwitch sceneSwitch = new SceneSwitch();
-
 		StyleGetter styleGetter = new StyleGetter();
 
 		//ELEMENTS
@@ -114,8 +110,14 @@ public class NewWordScene extends GridPane {
 		});
 
 		backBtn.setOnAction(e -> {
-			Scene scene = new Scene(new GameScenePrimary(this.stage, new User()), 1200, 700);
+			Scene scene = new Scene(new GameScenePrimary(this.stage, user), 1200, 700);
+			stage.setScene(scene);
+			stage.setTitle("Wordle");
+			stage.show();
 		});
+
+		this.stage.centerOnScreen();
+
 
 	}
 

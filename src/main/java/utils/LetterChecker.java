@@ -66,9 +66,8 @@ public class LetterChecker {
 
 		if (count == 5) {
 
-
-
 			return true;
+
 		}
 
 		return false;

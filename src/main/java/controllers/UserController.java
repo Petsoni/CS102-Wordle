@@ -221,6 +221,40 @@ public class UserController {
 		return null;
 	}
 
+
+	public static User getUserById(int id) {
+
+		User user = new User();
+
+		try {
+			connection = DBConnection.openConnection();
+
+			PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user WHERE id=?");
+
+			stmt.setInt(1, user.getId());
+
+			ResultSet set = stmt.executeQuery();
+
+			while (set.next()) {
+
+				user.setId(set.getInt("id"));
+				user.setName(set.getString("name"));
+				user.setSurname(set.getString("surname"));
+				user.setUsername(set.getString("username"));
+				user.setPassword(set.getString("password"));
+
+			}
+
+			connection.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return user;
+
+	}
+
 }
 
 

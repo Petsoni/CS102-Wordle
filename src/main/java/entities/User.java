@@ -1,9 +1,7 @@
 package entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -23,6 +21,10 @@ public class User {
 
 	@Column(name = "password", nullable = false, length = 50)
 	private String password;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "score_id", nullable = false)
+	private List<Score> scores;
 
 	public User() {
 	}
@@ -85,6 +87,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Score> getScores() {
+		return scores;
+	}
+
+	public void setScores(List<Score> scores) {
+		this.scores = scores;
 	}
 
 	@Override

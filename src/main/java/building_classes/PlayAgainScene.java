@@ -82,5 +82,7 @@ public class PlayAgainScene extends GridPane {
 		exitBtn.setOnAction(e -> {
 			this.stage.close();
 		});
+
+		this.stage.centerOnScreen();
 	}
 }

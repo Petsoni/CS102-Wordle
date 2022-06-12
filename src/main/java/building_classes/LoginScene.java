@@ -71,6 +71,7 @@ public class LoginScene extends GridPane {
 		this.setHgap(10);
 		this.setVgap(10);
 		this.setPadding(new Insets(25, 25, 25, 25));
+		this.stage.centerOnScreen();
 
 		//STYLE
 		this.getStylesheets().add(styleGetter.getStyle());
