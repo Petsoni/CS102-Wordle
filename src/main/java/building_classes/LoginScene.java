@@ -85,8 +85,10 @@ public class LoginScene extends GridPane {
 		loginBtn.setOnAction(e -> {
 
 			try {
+
 				boolean result = UserController.checkLoginDetails(userTextField.getText(),
 						pwField.getText());
+
 				if(!result){
 					throw new WrongUsernameOrPasswordException("Wrong username or password!");
 				}

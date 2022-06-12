@@ -102,12 +102,15 @@ public class SetOnActionUtil {
 												}
 
 											}
-										}catch (NonExistentWordException exception) {
+										} catch (NonExistentWordException exception) {
+
 											AlertUtil.showAlert("Non Existent Word",
 													"The word " + playerInput + " does not exist in the" +
 															" dictionary",
 													"", Alert.AlertType.ERROR);
+
 											exception.printStackTrace();
+
 										}
 									}
 								});

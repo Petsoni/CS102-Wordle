@@ -101,8 +101,6 @@ public class RegisterScene extends GridPane {
 			try {
 				boolean result = UserController.checkUsername(username);
 
-				System.out.println(result);
-
 				if (result) {
 					throw new UserAlreadyExistsException("Username already exists");
 				} else {

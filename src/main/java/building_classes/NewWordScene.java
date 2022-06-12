@@ -3,6 +3,7 @@ package building_classes;
 import controllers.WordController;
 import entities.User;
 import entities.Word;
+import exceptions.WordAlreadyExistsException;
 import exceptions.WordToLongException;
 import exceptions.alerts.AlertUtil;
 import javafx.geometry.Insets;
@@ -75,14 +76,24 @@ public class NewWordScene extends GridPane {
 
 		newWordField.getStyleClass().add("loginField");
 
+		addWordBtn.getStyleClass().add("buttons");
+		backBtn.getStyleClass().add("buttons");
+
 		addWordBtn.setOnAction(e -> {
 
 			try {
 
 				boolean wordToLong = WordController.checkIfWordIsTooLongOrTooShort(newWordField.getText());
+				boolean wordAlreadyExists = WordController.checkIfWordExists(newWordField.getText());
 
 				if (wordToLong) {
+
 					throw new WordToLongException("Word is too long");
+
+				} else if (wordAlreadyExists) {
+
+					throw new WordToLongException("Word already exists");
+
 				} else {
 
 					Word word = new Word(newWordField.getText());
@@ -92,9 +103,10 @@ public class NewWordScene extends GridPane {
 
 				}
 
-			} catch (WordToLongException exception) {
-				AlertUtil.showAlert("Can't add word", "Your word is too long or too short", "The word " +
-						"must be 5 characters long", Alert.AlertType.ERROR);
+			} catch (WordToLongException | WordAlreadyExistsException exception) {
+				AlertUtil.showAlert("Can't add word", newWordField.getText(),
+						"The word is too long, too short or it's already in the database!",
+						Alert.AlertType.ERROR);
 				exception.printStackTrace();
 			}
 
