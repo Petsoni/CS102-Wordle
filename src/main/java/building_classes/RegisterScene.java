@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import utils.FieldsEmptyCheck;
+import utils.RegisterFormFieldCheck;
 import utils.StyleGetter;
 
 public class RegisterScene extends GridPane {
@@ -117,37 +118,36 @@ public class RegisterScene extends GridPane {
 				AlertUtil.showAlert("Fields are not filled", "Please fill in all fields", "",
 						Alert.AlertType.ERROR);
 
+			} else if (!RegisterFormFieldCheck.checkFileds(username, password)) {
+
+				AlertUtil.showAlert("Incorrect user details", "Inputs are not eligible", "Please " +
+								"enter your details according to the specification",
+						Alert.AlertType.ERROR);
+
 			} else {
 
 				try {
 
-					if (password.length() < 7 || username.length() < 4) {
-						AlertUtil.showAlert("Incorrect user details", "Inputs are not eligible", "Your " +
-										"username has to be at least 5 characters long and your password " +
-										"needs to be at least 8 characters long",
-								Alert.AlertType.ERROR);
+					boolean result = UserController.checkUsername(username);
+
+					if (result) {
+						throw new UserAlreadyExistsException("Username already exists");
 					} else {
 
-						boolean result = UserController.checkUsername(username);
 
-						if (result) {
-							throw new UserAlreadyExistsException("Username already exists");
-						} else {
+						User newUser = new User(name, surname, username, password);
 
+						UserController.save(newUser);
 
-							User newUser = new User(name, surname, username, password);
+						AlertUtil.showAlert("Success", "Successful registration",
+								"User registered successfully",
+								Alert.AlertType.INFORMATION);
 
-							UserController.save(newUser);
-
-							AlertUtil.showAlert("Success", "Successful registration",
-									"User registered successfully",
-									Alert.AlertType.INFORMATION);
-
-							Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
-							stage.setScene(scene);
-							stage.show();
-						}
+						Scene scene = new Scene(new LoginScene(this.stage), 500, 400);
+						stage.setScene(scene);
+						stage.show();
 					}
+
 				} catch (UserAlreadyExistsException exception) {
 					AlertUtil.showAlert("Username already exists", "Username already exists",
 							"Please choose " +
@@ -157,15 +157,21 @@ public class RegisterScene extends GridPane {
 			}
 		});
 
-		registerBtn.getStyleClass().add("buttons");
+		registerBtn.getStyleClass().
 
-		backBtn.setOnAction(e -> {
+				add("buttons");
+
+		backBtn.setOnAction(e ->
+
+		{
 			Scene scene = new Scene(new LoginScene(stage), 500, 400);
 			stage.setScene(scene);
 			stage.show();
 		});
 
-		backBtn.getStyleClass().add("buttons");
+		backBtn.getStyleClass().
+
+				add("buttons");
 
 		this.stage.centerOnScreen();
 		this.stage.setResizable(false);
