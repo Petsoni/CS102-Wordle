@@ -150,8 +150,8 @@ public class LoginScene extends GridPane {
 		updatePasswordButton.getStyleClass().add("buttons");
 
 		deleteAccountButton.setOnAction(e -> {
-			Scene registerScene = new Scene(new DeleteAccountScene(this.stage), 500, 400);
-			stage.setScene(registerScene);
+			Scene deleteAccountScene = new Scene(new DeleteAccountScene(this.stage), 500, 400);
+			stage.setScene(deleteAccountScene);
 			stage.getIcons().add(icon);
 			stage.show();
 		});

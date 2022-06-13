@@ -57,7 +57,7 @@ public class BadCaptchaScene extends GridPane {
 
 		this.add(hbButtons, 0, 4);
 
-		this.stage.setTitle("Congratulations!");
+		this.stage.setTitle("BAD CAPTCHA!");
 		this.stage.getIcons().add(icon);
 		this.stage.setResizable(false);
 		this.stage.show();
