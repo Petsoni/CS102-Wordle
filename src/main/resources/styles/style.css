@@ -87,15 +87,6 @@
 }
 
 /*BUTTONS*/
-@keyframes blink{
-    from {
-        -fx-background-color: #c5c5c5;
-    }
-    to {
-        -fx-background-color: #4de13c;
-    }
-}
-
 .buttons {
     -fx-background-color: #b4f350;
     -fx-padding: 5px;
@@ -109,6 +100,21 @@
 
 .buttons:focused {
     -fx-background-color: #37c13c;
+}
+
+.delete {
+    -fx-background-color: #b4f350;
+    -fx-padding: 5px;
+    -fx-font-size: 15px;
+}
+
+.delete:hover {
+    -fx-background-color: #ff1e00;
+    keyframes: blink;
+}
+
+.delete:focused {
+    -fx-background-color: #ff1e00;
 }
 
 /*SCORE OVERVIEW*/
@@ -129,6 +135,20 @@
 
 .new-word-desc {
     -fx-font-size: 13px;
+    -fx-text-fill: #ff3838;
+    -fx-font-weight: bold;
+    -fx-font-family: "MS Reference Sans Serif";
+}
+
+.captcha {
+    -fx-font-size: 14px;
+    -fx-text-fill: #e88f45;
+    -fx-font-weight: bold;
+    -fx-font-family: "MS Reference Sans Serif";
+}
+
+.captcha-title {
+    -fx-font-size: 30px;
     -fx-text-fill: #ff3838;
     -fx-font-weight: bold;
     -fx-font-family: "MS Reference Sans Serif";

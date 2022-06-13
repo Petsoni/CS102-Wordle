@@ -71,6 +71,12 @@ public class LoginScene extends GridPane {
 		hbUpdatePasswordButtons.getChildren().add(updatePasswordButton);
 		this.add(hbUpdatePasswordButtons, 0, 4);
 
+		Button deleteAccountButton = new Button("Delete account");
+		HBox hbDeleteAccountButton = new HBox(10);
+		hbDeleteAccountButton.setAlignment(Pos.BOTTOM_RIGHT);
+		hbDeleteAccountButton.getChildren().add(deleteAccountButton);
+		this.add(hbDeleteAccountButton, 0, 5);
+
 		//GRIDING
 		this.setAlignment(Pos.CENTER);
 		this.setHgap(10);
@@ -121,6 +127,12 @@ public class LoginScene extends GridPane {
 		});
 		loginBtn.getStyleClass().add("buttons");
 
+		passwordTextField.setOnKeyPressed(e -> {
+			if(e.getCode().equals(KeyCode.ENTER)){
+				loginBtn.fire();
+			}
+		});
+
 		registerBtn.setOnAction(e -> {
 			Scene registerScene = new Scene(new RegisterScene(this.stage), 500, 400);
 			stage.setScene(registerScene);
@@ -137,10 +149,13 @@ public class LoginScene extends GridPane {
 		});
 		updatePasswordButton.getStyleClass().add("buttons");
 
-		passwordTextField.setOnKeyPressed(e -> {
-			if(e.getCode().equals(KeyCode.ENTER)){
-				loginBtn.fire();
-			}
+		deleteAccountButton.setOnAction(e -> {
+			Scene registerScene = new Scene(new DeleteAccountScene(this.stage), 500, 400);
+			stage.setScene(registerScene);
+			stage.getIcons().add(icon);
+			stage.show();
 		});
+		deleteAccountButton.getStyleClass().add("delete");
+
 	}
 }

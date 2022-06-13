@@ -21,7 +21,6 @@ public class RegisterFormFieldCheck {
 		} else
 			return true;
 
-
 	}
 
 }
