@@ -316,7 +316,7 @@ public class UserController {
 
 			PreparedStatement stmt = connection.prepareStatement("SELECT * FROM user WHERE id=?");
 
-			stmt.setInt(1, user.getId());
+			stmt.setInt(1, id);
 
 			ResultSet set = stmt.executeQuery();
 

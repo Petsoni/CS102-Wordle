@@ -8,6 +8,8 @@ module com.example.cs102wordle {
 	requires org.junit.jupiter.api;
 	requires org.junit.platform.commons;
 	requires org.junit.platform.engine;
+	requires testng;
+	requires org.mockito;
 
 	exports com.example.Main;
 	exports building_classes;
@@ -15,4 +17,8 @@ module com.example.cs102wordle {
 	opens entities to javafx.base;
 	exports utils;
 	opens utils to javafx.fxml;
+	exports tests;
+	exports entities;
+	exports controllers;
+	opens tests to javafx.fxml;
 }

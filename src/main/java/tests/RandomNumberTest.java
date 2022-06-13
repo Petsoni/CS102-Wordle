@@ -1,39 +1,43 @@
 package tests;
 
-import org.junit.jupiter.api.Test;
-import utils.RandomNumber;
+import controllers.WordController;
+import org.testng.annotations.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Random;
 
-class RandomNumberTest {
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
+
+public class RandomNumberTest {
 
 	@Test
-	void randNumber() {
+	public void testRandNumber() {
 
+		Random random = new Random();
 
-		int upperBound = 10000 - 505 + 1;
+		int allWordsListSize = WordController.getAllWords().size();
 
-		assertTrue(RandomNumber.randNumber() <= upperBound);
+		int upperBound = allWordsListSize - 1 + 1;
+
+		int finalNum = random.nextInt(upperBound);
+
+		assertTrue(finalNum <= allWordsListSize);
 
 	}
 
 	@Test
-	void randNumberIsHigher() {
+	public void testRandNumberIsLower() {
 
+		Random random = new Random();
 
-		int upperBound = 10000 - 505 + 1;
+		int allWordsListSize = WordController.getAllWords().size();
 
-		assertFalse(RandomNumber.randNumber() > upperBound);
+		int upperBound = allWordsListSize - 1 + 1;
 
-	}
+		int finalNum = random.nextInt(upperBound);
 
-	@Test
-	void randNumberIsLower() {
-
-		int lowerBound = 505;
-
-		assertFalse(RandomNumber.randNumber() < lowerBound);
+		assertFalse(finalNum > allWordsListSize);
 
 	}
-
 }
