@@ -2,6 +2,7 @@ package building_classes;
 
 import controllers.UserController;
 import entities.User;
+import exceptions.BadCapchaException;
 import exceptions.alerts.AlertUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -111,48 +112,54 @@ public class DeleteAccountScene extends GridPane {
 			String password = passwordField.getText();
 			String captcha = captchaField.getText();
 
-			if(!FieldsEmptyCheck.check(username, password, captcha)) {
+			try {
+				if (!FieldsEmptyCheck.check(username, password, captcha)) {
 
-				AlertUtil.showAlert("Incorrect user details", "Please fill in all fields",
-						"Please fill in all fields", Alert.AlertType.ERROR);
+					AlertUtil.showAlert("Incorrect user details", "Please fill in all fields",
+							"Please fill in all fields", Alert.AlertType.ERROR);
 
-			} else if(!captcha.equals(captchaWord.getText())) {
+				} else if (!captcha.equals(captchaWord.getText())) {
 
-				Scene scene = new Scene(new BadCaptchaScene(stage), 450, 200);
-				stage.setScene(scene);
-				stage.show();
-
-			} else {
-
-				if(UserController.getUserByUsername(username) == null) {
-
-					AlertUtil.showAlert("User not found", "User does not exist",
-							"", Alert.AlertType.ERROR);
+					throw new BadCapchaException("Incorrect captcha");
 
 				} else {
 
-					User user = UserController.getUserByUsername(username);
+					if (UserController.getUserByUsername(username) == null) {
 
-					if (!UserController.checkLoginDetails(username, password)) {
-
-						AlertUtil.showAlert("Incorrect user details", "Please enter the correct user details",
+						AlertUtil.showAlert("User not found", "User does not exist",
 								"", Alert.AlertType.ERROR);
 
 					} else {
 
-						UserController.delete(user);
+						User user = UserController.getUserByUsername(username);
 
-						AlertUtil.showAlert("Account deleted", "Account deleted successfully",
-								"Your account has been deleted", Alert.AlertType.INFORMATION);
+						if (!UserController.checkLoginDetails(username, password)) {
 
-						Scene scene = new Scene(new LoginScene(stage), 500, 400);
-						stage.setScene(scene);
-						stage.setTitle("Login");
-						stage.show();
+							AlertUtil.showAlert("Incorrect user details",
+									"Please enter the correct user details",
+									"", Alert.AlertType.ERROR);
+
+						} else {
+
+							UserController.delete(user);
+
+							AlertUtil.showAlert("Account deleted", "Account deleted successfully",
+									"Your account has been deleted", Alert.AlertType.INFORMATION);
+
+							Scene scene = new Scene(new LoginScene(stage), 500, 400);
+							stage.setScene(scene);
+							stage.setTitle("Login");
+							stage.show();
+
+						}
 
 					}
-
 				}
+			} catch (BadCapchaException e1) {
+				Scene scene = new Scene(new BadCaptchaScene(stage), 450, 200);
+				stage.setScene(scene);
+				stage.show();
+				e1.printStackTrace();
 			}
 		});
 
